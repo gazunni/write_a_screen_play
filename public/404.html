@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Page Not Found | Create A Screenplay</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Courier+Prime:wght@700&family=Outfit:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+  <style>
+    html, body { height: 100%; overflow: auto; background: #f5f0e8; }
+    .page-404 {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 3rem 2rem;
+    }
+    .err-num {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(6rem, 18vw, 12rem);
+      font-weight: 700; color: #b01c1c;
+      line-height: 1; margin-bottom: .5rem;
+    }
+    .err-slug {
+      font-family: 'Courier Prime', monospace;
+      font-size: .75rem; letter-spacing: .2em;
+      text-transform: uppercase; color: #7a7060;
+      margin-bottom: 1.5rem;
+    }
+    .err-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.3rem, 3vw, 2rem);
+      font-weight: 700; color: #1a1a1a;
+      margin-bottom: .8rem;
+    }
+    .err-body {
+      font-size: .95rem; color: #4a4540;
+      max-width: 40ch; margin: 0 auto 2rem;
+      line-height: 1.8;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-404">
+    <p class="err-slug">FADE IN:</p>
+    <div class="err-num">404</div>
+    <p class="err-slug">PAGE NOT FOUND — SCENE MISSING FROM SCRIPT</p>
+    <h1 class="err-title">This page doesn't exist.</h1>
+    <p class="err-body">Looks like this scene ended up on the cutting room floor. Head back to the main story.</p>
+    <a href="/" class="btn btn-r">Back to Home</a>
+  </div>
+</body>
+</html>

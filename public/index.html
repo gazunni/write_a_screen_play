@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO -->
+  <title>Create A Screenplay — Gabriel D. Angi</title>
+  <meta name="description" content="Screenplay writing guide, courses, and mentoring for beginner writers. Learn the craft with Gabriel D. Angi — 35+ years in film & television.">
+  <meta name="keywords" content="screenplay writing, screenwriting course, screenplay mentor, how to write a screenplay, screenwriting guide">
+  <meta name="author" content="Gabriel D. Angi">
+  <link rel="canonical" href="https://createascreenplay.com/">
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://createascreenplay.com/">
+  <meta property="og:title"       content="Create A Screenplay — Gabriel D. Angi">
+  <meta property="og:description" content="Screenplay writing guide, courses, and mentoring. Learn the craft from a 35+ year film industry professional.">
+  <meta property="og:image"       content="https://createascreenplay.com/images/og-image.jpg">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/main.css">
+
+  <!-- Google Analytics — replace G-XXXXXXXXXX via Railway env var or directly -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+</head>
+<body>
+
+  <!-- ── NAV ─────────────────────────────────────────────── -->
+  <nav id="nav">
+    <a class="logo" href="/" onclick="go('home');return false;">Create A <em>Screenplay</em></a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">&#9776;</button>
+    <div class="nav-links" id="nav-links">
+      <button class="nb on"  data-p="home"       onclick="go('home')">Home</button>
+      <button class="nb"     data-p="story"       onclick="go('story')">Story</button>
+      <button class="nb"     data-p="craft"       onclick="go('craft')">The Craft</button>
+      <button class="nb"     data-p="principles"  onclick="go('principles')">Principles</button>
+      <button class="nb"     data-p="about"       onclick="go('about')">About</button>
+      <button class="nb cta" data-p="courses"     onclick="go('courses')">Courses</button>
+    </div>
+  </nav>
+
+  <!-- ── STAGE ────────────────────────────────────────────── -->
+  <div id="stage">
+
+    <!-- HOME -->
+    <div class="pg on" id="pg-home">
+      <div class="h-left">
+        <img class="h-bg-img" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEik39DNT_RPQzMsvMSZ6sW_uaCGaINLmvOnFVhiN1lx7yC-_U6E05-2TfHTqGPNDqDccGTq-AhvmyCRAlTACofiRwVbKoaSWVgBfOV22ANuO6ONH0PEJsDkY7F0to_gZvt2qgnB6Cf6420/s1600/fire-typewriter.jpg" alt="">
+        <p class="eyebrow">Screenplay Writing Guide &amp; Mentoring</p>
+        <h1 class="display">Everybody can<br>write <em>a screenplay</em><br>— as long as you<br>know how.</h1>
+        <p class="lead">With logic, knowledge of the craft, and commitment to research — anyone who can think can create a great, original story for the screen.</p>
+        <div class="btns">
+          <button class="btn btn-r" onclick="go('courses')">Explore Courses</button>
+          <button class="btn btn-o" onclick="go('story')">Start Learning</button>
+        </div>
+        <div class="stats">
+          <div class="stat"><span class="sn">35+</span><span class="sl">Years in Film &amp; TV</span></div>
+          <div class="stat"><span class="sn">25+</span><span class="sl">Years Teaching</span></div>
+          <div class="stat"><span class="sn">3</span><span class="sl">Courses Offered</span></div>
+        </div>
+      </div>
+      <div class="h-right">
+        <img class="h-hero-img"
+          src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEik39DNT_RPQzMsvMSZ6sW_uaCGaINLmvOnFVhiN1lx7yC-_U6E05-2TfHTqGPNDqDccGTq-AhvmyCRAlTACofiRwVbKoaSWVgBfOV22ANuO6ONH0PEJsDkY7F0to_gZvt2qgnB6Cf6420/s1600/fire-typewriter.jpg"
+          alt="Typewriter — a writer's passion">
+        <div class="h-right-content">
+          <div class="qp">
+            <blockquote>"There is no greater agony than bearing an untold story inside you."</blockquote>
+            <cite>— Maya Angelou</cite>
+          </div>
+          <div class="feature-box">
+            <p class="eyebrow">What you'll find here</p>
+            <ul class="fl">
+              <li>A complete Screenplay Writing Guide</li>
+              <li>Story theory, craft &amp; structure</li>
+              <li>Principles &amp; commandments of the craft</li>
+              <li>Live workshops, courses &amp; mentoring</li>
+              <li>Script analysis &amp; script coverage</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STORY -->
+    <div class="pg" id="pg-story">
+      <div class="inner">
+        <p class="scene-hdr">INT. YOUR IMAGINATION — DAY &nbsp;·&nbsp; What Is Story?</p>
+        <h2 class="sh">Story is how we <em>make sense</em> of the world.</h2>
+        <div class="rule"></div>
+        <div class="two">
+          <div>
+            <p class="body">What triggers the pleasure we feel when a story hooks us? Not lyrical language or vivid images — <strong>Curiosity is the trigger.</strong> The desire to find out what happens next. It is the STORY that captivates the brain.</p>
+            <p class="body">Without knowing what a story is and how it works, you won't be able to write a screenplay. Many people think they have a great idea for a movie — but most of the time the idea doesn't include a real story at all. It's merely a description of what happened.</p>
+            <p class="body">From the very first sentence, a story must revolve around how someone solves an unexpected problem they simply can't avoid. The reader needs to sense this immediately. Nothing grabs the brain quicker than a surprise.</p>
+            <div class="callout">
+              <p class="callout-title">Three things every reader's brain hunts for instantly:</p>
+              <p>→ &nbsp;Whose story is this?</p>
+              <p>→ &nbsp;What's happening here?</p>
+              <p>→ &nbsp;What is at stake?</p>
+            </div>
+            <p class="attribution">Based on Lisa Cron's teaching.</p>
+            <div class="qp">
+              <blockquote>"If you tell me, it's an essay. If you show me, it's a story."</blockquote>
+              <cite>— Barbara Greene</cite>
+            </div>
+          </div>
+          <div class="stack">
+            <img class="content-img"
+              src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiu4Bo0zN5nsphwW7iJBBYX4JE0OAfPl4syCG0E9oPspwqjsbDT5IGlgyEIA_ukR6lCiJwbLN60pE30tksSLx_Ol4LskXHhOdZjDNLXEmswmMZ7FZyW1k2q8Y_GcepMT9lnz2WQGN5r-6A/s1600/WYS+with+bgrd.jpg"
+              alt="Write your story">
+            <div class="card card-red">
+              <p class="eyebrow">The Definition of Story</p>
+              <table class="def-table">
+                <tr><td>How what happens</td><td>The Plot</td></tr>
+                <tr><td>Affects someone who</td><td>The Protagonist</td></tr>
+                <tr><td>Is in pursuit of a difficult goal and</td><td>The Story Problem</td></tr>
+                <tr><td>How he or she changes as a result</td><td>What It's About</td></tr>
+              </table>
+            </div>
+            <div class="card">
+              <p class="eyebrow">Three Types of Screenplay</p>
+              <p class="body sm"><strong>Spec Script</strong> — Written speculatively, in the hope of being purchased by a producer.</p>
+              <p class="body sm"><strong>Commissioned Script</strong> — Written by hired professionals for a specific project or franchise.</p>
+              <p class="body sm last"><strong>Shooting Script</strong> — Altered for production: scenes numbered, pages locked.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CRAFT -->
+    <div class="pg" id="pg-craft">
+      <div class="inner">
+        <p class="scene-hdr">INT. THE WRITER'S ROOM — CONTINUOUS &nbsp;·&nbsp; The Craft</p>
+        <h2 class="sh">Rules to follow — <em>or break.</em></h2>
+        <div class="rule"></div>
+        <div class="two" style="margin-bottom:2rem;">
+          <div>
+            <p class="body">Craft gives you the questions you need to answer. It maximizes your talent and radically reduces your rewriting time. When you know the rules, you break them <em>knowingly</em> — and that makes your screenplay original.</p>
+            <p class="body">When you break them unknowingly, your screenplay becomes aimless and out of balance. You don't have to follow every rule — you just have to <em>know</em> them. Learn the craft. Then practice it: write.</p>
+            <div class="qp">
+              <blockquote>"The basis of the art of dramatic writing is in the creative interpretation of human motivation."</blockquote>
+              <cite>— Lajos Egri</cite>
+            </div>
+          </div>
+          <div class="stack">
+            <img class="content-img"
+              src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhhvJgWBwZRvTQcc9egV9tUwHlZE7J2EonYnWk-yYtWN1cX_G9mYljjF3CTw2lFeW86YCYrg2J_P3STQZgCmrnGT4ZuS9d8zPfDnOPcQLmbjNQW4VZma0Ez1bOa6VRdlApW-AgYdEUA2aM/s1600/Writing+hands.jpg"
+              alt="Writing hands">
+            <img class="content-img"
+              src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgPXpfFOl3msJaI6XzB8A6t5YR2QBiQK7OSS8HQ8L9m6XebGlJ8mevzmKBwhcaD-H1nc6DsnY1I6H2q8B8GKH7o-rzJSM52xgx84_V5deUV1BIO1w-WdY6X05akx2-ZA1TXS_PFs318-Xw/s1600/Write+hard+and+clear.jpg"
+              alt="Write hard and clear">
+          </div>
+        </div>
+        <p class="eyebrow">What you learn when you study the craft:</p>
+        <div class="cgrid">
+          <div class="cc"><span class="cn">1</span><p>Storytelling — what makes a story work on screen</p></div>
+          <div class="cc"><span class="cn">2</span><p>What a story is — genre types and different media</p></div>
+          <div class="cc"><span class="cn">3</span><p>How to create unforgettable, three-dimensional characters</p></div>
+          <div class="cc"><span class="cn">4</span><p>The essential elements of professional screenwriting</p></div>
+          <div class="cc"><span class="cn">5</span><p>How to structure your main plot and all sub-plots</p></div>
+          <div class="cc"><span class="cn">6</span><p>How to write dialogue that reveals character and drives story</p></div>
+          <div class="cc"><span class="cn">7</span><p>How to create genuine emotion in your audience</p></div>
+          <div class="cc"><span class="cn">8</span><p>How conflict drives your story at every level</p></div>
+          <div class="cc"><span class="cn">9</span><p>How to create powerful turning points and pivot scenes</p></div>
+          <div class="cc"><span class="cn">10</span><p>What endings work best and which audiences prefer</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRINCIPLES -->
+    <div class="pg" id="pg-principles">
+      <div class="inner">
+        <p class="scene-hdr">INT. THE WRITER'S DESK — NIGHT &nbsp;·&nbsp; Principles &amp; Commandments</p>
+        <h2 class="sh">Rules to live by as a <em>screenwriter.</em></h2>
+        <div class="rule"></div>
+        <div class="two" style="margin-bottom:2rem;align-items:center;">
+          <p class="body">The principles and commandments below are the distilled wisdom of working screenwriters who learned these truths the hard way — through drafts, rejections, and rewrites. Study them. Internalize them. Then decide when to follow them and when to break them — but always knowingly.</p>
+          <img class="content-img"
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhAokGmc85t02CbWiIp6f-TfI_fv4afwWoRhqOxOKvXLmSBMhODMMHAkFFs0Hz4ZoExgtQ01jipJ5qZaqA7lXslmBVKpGUrbLfR2ndblpp0mqhD82A5I4leUHecrlEmWeWTPn_vmUFSQVI/s1600/rules_are_meant_to-BE+BROKEN.jpg"
+            alt="Rules are meant to be broken">
+        </div>
+        <div class="tabs">
+          <button class="tab on" onclick="switchTab(event,'tp')">12 Principles</button>
+          <button class="tab"    onclick="switchTab(event,'tc')">10 Commandments</button>
+        </div>
+        <div id="tp" class="tb on">
+          <p class="tab-credit">by Daniel Martin Eckhart</p>
+          <ul class="pl">
+            <li class="pi"><span class="pn">01</span><div><strong>Write daily.</strong><span>You need a strong writing muscle to succeed — so exercise it.</span></div></li>
+            <li class="pi"><span class="pn">02</span><div><strong>Enjoy procrastination.</strong><span>Procrastination is life — never feel guilty about it.</span></div></li>
+            <li class="pi"><span class="pn">03</span><div><strong>Trust your instincts.</strong><span>Learn from others but never depend on them.</span></div></li>
+            <li class="pi"><span class="pn">04</span><div><strong>Believe in yourself.</strong><span>If you don't, no one ever will.</span></div></li>
+            <li class="pi"><span class="pn">05</span><div><strong>Suck it up.</strong><span>Learn from rejection — it'll make you stronger.</span></div></li>
+            <li class="pi"><span class="pn">06</span><div><strong>Know your world.</strong><span>Make movie history, films and scripts part of your essence.</span></div></li>
+            <li class="pi"><span class="pn">07</span><div><strong>Network.</strong><span>You'll never have a career if you don't get out there.</span></div></li>
+            <li class="pi"><span class="pn">08</span><div><strong>Love what you do.</strong><span>If writing doesn't make you happy, stop.</span></div></li>
+            <li class="pi"><span class="pn">09</span><div><strong>Be generous.</strong><span>Spread your ideas — don't hide them.</span></div></li>
+            <li class="pi"><span class="pn">10</span><div><strong>Be a craftsman/woman.</strong><span>It may become art in time.</span></div></li>
+            <li class="pi"><span class="pn">11</span><div><strong>Deliver on time.</strong><span>Never miss a deadline — not even one you gave yourself.</span></div></li>
+            <li class="pi"><span class="pn">12</span><div><strong>Collaborate.</strong><span>You'll never make a film happen on your own.</span></div></li>
+          </ul>
+        </div>
+        <div id="tc" class="tb">
+          <p class="tab-credit">by Robert McKee</p>
+          <ul class="pl">
+            <li class="pi"><span class="pn">I</span><div><strong>Thou shalt not take the crisis out of the protagonist's hands.</strong><span>The anti-deus ex machina commandment.</span></div></li>
+            <li class="pi"><span class="pn">II</span><div><strong>Thou shalt not make life easy for the protagonist.</strong><span>Nothing progresses in a story except through conflict.</span></div></li>
+            <li class="pi"><span class="pn">III</span><div><strong>Thou shalt not give exposition for exposition's sake.</strong><span>Dramatize it. Convert exposition to ammunition.</span></div></li>
+            <li class="pi"><span class="pn">IV</span><div><strong>Thou shalt not use false mystery or cheap surprise.</strong><span></span></div></li>
+            <li class="pi"><span class="pn">V</span><div><strong>Thou shalt respect your audience.</strong><span>The anti-hack commandment.</span></div></li>
+            <li class="pi"><span class="pn">VI</span><div><strong>Thou shalt know your world as God knows this one.</strong><span>The pro-research commandment.</span></div></li>
+            <li class="pi"><span class="pn">VII</span><div><strong>Thou shalt not complicate when complexity is better.</strong><span>Use all three levels: Intra-personal, Inter-personal, Extra-personal.</span></div></li>
+            <li class="pi"><span class="pn">VIII</span><div><strong>Thou shalt seek the end of the line.</strong><span>Take characters to the farthest reaches of conflict within the story's realm of probability.</span></div></li>
+            <li class="pi"><span class="pn">IX</span><div><strong>Thou shalt not write on the nose.</strong><span>Put a subtext under every text.</span></div></li>
+            <li class="pi"><span class="pn">X</span><div><strong>Thou shalt rewrite.</strong><span></span></div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="pg" id="pg-about">
+      <div class="inner">
+        <p class="scene-hdr">INT. FILM SCHOOL — BUDAPEST — FLASHBACK &nbsp;·&nbsp; About</p>
+        <h2 class="sh">35+ years in film &amp; television. <em>Dedicated to your craft.</em></h2>
+        <div class="rule"></div>
+        <img class="banner-img"
+          src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhcHuLwsVdd1lHSYAK6U1dKhKZohmW2uzQvfVi6QZRBmn3OL6CopgwuVN0fDhaMmLBvvmbqDjUlB5HjYSp1uH2fptwE3-32F_vRlODHYMyFHl1qN31zsd_hFTZdv70LKXvyWLDtlCPwBjo/s1600/Hero-class-Audience.jpg"
+          alt="Gabriel teaching a class">
+        <div class="two">
+          <div>
+            <div class="bio-pic">
+              <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgJzodFRndAxF3M8ER4iuea9WA-ITiiOB-DTJEzgEYPk4xB9Khl7PGXlc7Z-X4G_1ogeNVNeUNTM6qpXkdlJpCF22sFUxLaFDgjbe1e7c-Ys425rX3kMfrEcH8_IA5Yxw/s220/ProfPic.jpg"
+                alt="Gabriel D. Angi" onerror="this.parentElement.textContent='G'">
+            </div>
+            <p class="bio-name">Gabriel D. Angi</p>
+            <p class="bio-title">Screenwriter &amp; Instructor</p>
+            <div class="lnks">
+              <a href="http://www.imdb.com/name/nm0029825/" target="_blank" rel="noopener" class="lnk">IMDB Credits</a>
+              <a href="http://www.instagram.com/gabriel.d.angi" target="_blank" rel="noopener" class="lnk">Instagram</a>
+              <a href="mailto:gabriel.d.angi@gmail.com" class="lnk">Email</a>
+            </div>
+            <div class="bio-note">
+              <p>Graduate of the <strong>Hungarian University of Cinematic Arts</strong>, Budapest. Mentored by <strong>Bart Gavigan</strong> — screenplay writer, script-doctor, and lecturer (London, England).</p>
+            </div>
+            <div class="qp">
+              <blockquote>"A writer is a person who cares what words mean, what they say, how they say it."</blockquote>
+              <cite>— Ursula K. Le Guin</cite>
+            </div>
+          </div>
+          <div>
+            <p class="body">Gabriel D. Angi has spent more than thirty-five years working across the full spectrum of film and television — feature films, TV-films, TV series, documentaries, music videos, and commercials — in positions from Unit Manager to Director to Screenplay Writer.</p>
+            <p class="body">Today he teaches screenplay writing in schools, colleges, libraries, and film clubs across Canada and internationally, with a focus on equipping writers with real, usable craft knowledge.</p>
+            <div class="cv-section">
+              <p class="eyebrow">Teaching History</p>
+              <div class="cv"><span class="cy">2018 – Present</span><div><div class="cr">Successful Screenplay Writer 101 Mentoring</div><div class="cp">3–12 months · in-person &amp; online</div></div></div>
+              <div class="cv"><span class="cy">2015 – Present</span><div><div class="cr">Creative Screenplay Writing — 4-Week Workshop</div><div class="cp">Public Libraries · Hamilton · Burlington · St. Catharines, ON</div></div></div>
+              <div class="cv"><span class="cy">2014 – 2015</span><div><div class="cr">Screenplay Writing in the ESL Classroom</div><div class="cp">Conference Speaker, TESL Ontario, Toronto</div></div></div>
+              <div class="cv"><span class="cy">2007 – 2009</span><div><div class="cr">Basics of Screenplay Writing &amp; Story Theories</div><div class="cp">Calvary Elementary School, St. Catharines, ON</div></div></div>
+              <div class="cv"><span class="cy">2003 – 2004</span><div><div class="cr">"Screenplay to Screen" — Guest Speaker</div><div class="cp">Brock University, St. Catharines</div></div></div>
+              <div class="cv"><span class="cy">1998 – 2001</span><div><div class="cr">Communication Theory &amp; Media Studies</div><div class="cp">Central European Academy, Budapest</div></div></div>
+              <div class="cv"><span class="cy">1995 – 1998</span><div><div class="cr">Screenplay Writing Teacher</div><div class="cp">GGCA International School, Budapest</div></div></div>
+              <div class="cv"><span class="cy">1999</span><div><div class="cr">The Story and The Screenplay — Lecturer</div><div class="cp">University of Theatre and Film, Budapest</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COURSES -->
+    <div class="pg" id="pg-courses">
+      <div class="inner">
+        <p class="scene-hdr">EXT. THE OPEN ROAD — DAWN &nbsp;·&nbsp; Classes &amp; Courses</p>
+        <h2 class="sh">Anchor your writing <em>at a new level.</em></h2>
+        <div class="rule"></div>
+        <p class="lead">My goal is to equip you for the challenges of writing screenplays — to give you the charts you need to navigate to the finish line, and the skill-set to sustain the journey.</p>
+
+        <div class="three courses-grid">
+          <div class="ccard">
+            <span class="ctag">3–12 Month Mentoring</span>
+            <h3 class="card-title">The Successful Screenplay Writer 101</h3>
+            <p class="body sm">Weekly in-person and online meetings — 1 to 3 hours per week, set up as requested.</p>
+            <ul class="cl">
+              <li>All you need to know about the craft</li>
+              <li>Creating achievable writing goals</li>
+              <li>Masterminding your story</li>
+              <li>Honest professional feedback</li>
+              <li>Accountability &amp; emotional support</li>
+            </ul>
+          </div>
+          <div class="ccard">
+            <span class="ctag">4-Week Workshop · Level I</span>
+            <h3 class="card-title">Creative Screenplay Writing — Basics</h3>
+            <p class="body sm">4 × 5-hour sessions introducing the fundamentals of the craft and how to become a writer.</p>
+            <ul class="cl">
+              <li>Creativity, art &amp; the story around you</li>
+              <li>Brainstorming, pitch, tagline &amp; logline</li>
+              <li>Building characters &amp; story paradigms</li>
+              <li>3-Act structure, plot points &amp; subtext</li>
+              <li>Film genres, formatting &amp; deadly flaws</li>
+            </ul>
+          </div>
+          <div class="ccard">
+            <span class="ctag">4-Week Workshop · Level II</span>
+            <h3 class="card-title">Creative Screenplay Writing — Advanced</h3>
+            <p class="body sm">4 × 5-hour sessions developing your skills and writing your screenplay.</p>
+            <ul class="cl">
+              <li>Developing your unique writing voice</li>
+              <li>Opening horizons to different methods</li>
+              <li>Advanced structural techniques</li>
+              <li>Writing your complete screenplay</li>
+              <li>Peer review &amp; workshop critique</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- CONTACT FORM -->
+        <div class="contact-block">
+          <div class="contact-intro">
+            <h3>Ready to write your story?</h3>
+            <p>Interested in a course, mentoring, script analysis, or coverage? Send a message and Gabriel will get back to you shortly. All offerings available in-person and online.</p>
+            <div class="contact-links">
+              <a href="mailto:gabriel.d.angi@gmail.com" class="lnk">gabriel.d.angi@gmail.com</a>
+              <a href="http://www.instagram.com/gabriel.d.angi" target="_blank" rel="noopener" class="lnk">Instagram</a>
+              <a href="http://www.imdb.com/name/nm0029825/" target="_blank" rel="noopener" class="lnk">IMDB</a>
+            </div>
+          </div>
+          <form id="contact-form" class="contact-form" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Name <span class="req">*</span></label>
+                <input type="text" id="name" name="name" required placeholder="Your name">
+              </div>
+              <div class="form-group">
+                <label for="email">Email <span class="req">*</span></label>
+                <input type="email" id="email" name="email" required placeholder="your@email.com">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="interest">I'm interested in</label>
+                <select id="interest" name="interest">
+                  <option value="">Select one…</option>
+                  <option>Mentoring (3–12 months)</option>
+                  <option>Level I Workshop</option>
+                  <option>Level II Workshop</option>
+                  <option>Script Analysis / Coverage</option>
+                  <option>General Question</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="experience">Writing experience</label>
+                <select id="experience" name="experience">
+                  <option value="">Select one…</option>
+                  <option>Complete beginner</option>
+                  <option>Some writing experience</option>
+                  <option>Working on a screenplay now</option>
+                  <option>Have completed a screenplay</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="message">Message <span class="req">*</span></label>
+              <textarea id="message" name="message" rows="4" required placeholder="Tell Gabriel what you're working on…"></textarea>
+            </div>
+            <div class="form-footer">
+              <button type="submit" class="btn btn-r" id="submit-btn">Send Message</button>
+              <p class="form-status" id="form-status"></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /stage -->
+
+  <!-- Scripts -->
+  <script src="/js/app.js"></script>
+
+</body>
+</html>
