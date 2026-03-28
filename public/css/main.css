@@ -13,7 +13,7 @@ html, body { height: 100%; overflow: hidden; }
   --ink-light:   #7a7060;
   --red:         #b01c1c;
   --red-dim:     rgba(176, 28, 28, 0.08);
-  --nav-h:       58px;
+  --nav-h:       68px;
 }
 
 body {
@@ -48,10 +48,10 @@ body {
 .nb {
   background: none; border: none; cursor: pointer;
   font-family: 'Courier Prime', monospace;
-  font-size: .72rem; font-weight: 700;
+  font-size: .88rem; font-weight: 700;
   letter-spacing: .12em; text-transform: uppercase;
   color: rgba(245, 240, 232, .5);
-  padding: .55rem 1rem;
+  padding: .75rem 1.3rem;
   position: relative; transition: color .2s;
 }
 .nb::after {
@@ -67,7 +67,7 @@ body {
 .nb.cta {
   background: var(--red); color: #f5f0e8 !important;
   margin-left: 1rem; font-weight: 700;
-  padding: .5rem 1.3rem;
+  padding: .65rem 1.5rem;
 }
 .nb.cta::after { display: none; }
 .nb.cta:hover  { background: #8f1515; }
@@ -551,4 +551,30 @@ body {
   .nb { width: 100%; text-align: left; padding: .7rem 1rem; }
   .nb.cta { margin-left: 0; margin-top: .3rem; }
   .hamburger { display: block; }
+}
+
+/* ── WYS ANIMATED WORD STAGE ─────────────────────────────── */
+.wys-stage {
+  width: 100%;
+  height: 170px;
+  background: #1a1a1a;
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.wys-word {
+  position: absolute;
+  font-family: 'Playfair Display', serif;
+  color: rgba(245, 240, 232, 0.25);
+  font-weight: 700;
+  cursor: default;
+  transform-origin: center center;
+  white-space: nowrap;
+  user-select: none;
+  pointer-events: none;
+  transition: color 0.4s ease, text-shadow 0.4s ease;
+}
+.wys-word.pulse {
+  color: #f5f0e8;
+  text-shadow: 0 0 24px rgba(176, 28, 28, 0.6);
 }
