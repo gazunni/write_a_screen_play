@@ -1,6 +1,6 @@
 {
   "name": "create-a-screenplay",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Gabriel D. Angi — Screenplay Writing Guide & Mentoring",
   "main": "server.js",
   "scripts": {
