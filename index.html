@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create A Screenplay — Gabriel D. Angi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Outfit',sans-serif;background:#0c0b09;color:#e8e0d0;font-size:16px;line-height:1.7}
+:root{
+  --bg:#0c0b09;--surface:#141210;--panel:#1a1815;--border:rgba(255,255,255,.07);
+  --gold:#c9973a;--gold-dim:rgba(201,151,58,.12);--cream:#e8e0d0;--muted:#7a7060;
+  --red:#9b3030;--nav-h:60px;
+}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;padding:0 2.5rem;height:var(--nav-h);
+  background:rgba(12,11,9,.95);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+}
+.logo{
+  font-family:'Playfair Display',serif;font-size:1.05rem;
+  color:var(--cream);margin-right:auto;cursor:pointer;
+}
+.logo em{font-style:italic;color:var(--gold);}
+.nav-links{display:flex;align-items:center;gap:.2rem;}
+.nb{
+  background:none;border:none;cursor:pointer;
+  font-family:'Outfit',sans-serif;font-size:.7rem;font-weight:500;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--muted);
+  padding:.55rem 1rem;border-radius:2px;
+  position:relative;transition:color .2s;
+}
+.nb::after{
+  content:'';position:absolute;bottom:0;left:1rem;right:1rem;
+  height:1px;background:var(--gold);transform:scaleX(0);transition:transform .25s;
+}
+.nb:hover{color:var(--cream);}
+.nb.on{color:var(--cream);}
+.nb.on::after{transform:scaleX(1);}
+.nb.cta{background:var(--gold);color:#0c0b09 !important;margin-left:.8rem;font-weight:600;}
+.nb.cta::after{display:none;}
+.nb.cta:hover{opacity:.85;}
+
+/* STAGE */
+#stage{
+  position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;
+  overflow:hidden;
+}
+.pg{
+  position:absolute;inset:0;overflow-y:auto;
+  padding:3rem 3rem 4rem;
+  opacity:0;pointer-events:none;
+  transform:translateY(16px);
+  transition:opacity .3s ease,transform .3s ease;
+  scrollbar-width:thin;scrollbar-color:var(--border) transparent;
+}
+.pg::-webkit-scrollbar{width:4px;}
+.pg::-webkit-scrollbar-thumb{background:var(--border);}
+.pg.on{opacity:1;pointer-events:auto;transform:translateY(0);}
+
+/* HOME - two-panel fills viewport */
+#pg-home{padding:0;display:grid;grid-template-columns:55% 45%;}
+.h-left{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:4rem 3.5rem 4rem 4rem;
+  border-right:1px solid var(--border);
+  position:relative;overflow:hidden;
+}
+.h-left::after{
+  content:'';position:absolute;bottom:-80px;right:-80px;
+  width:300px;height:300px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,151,58,.06),transparent 70%);
+  pointer-events:none;
+}
+.h-right{
+  display:flex;flex-direction:column;justify-content:center;gap:1.2rem;
+  padding:4rem 3rem 4rem 3rem;overflow-y:auto;
+}
+
+/* TYPOGRAPHY */
+.eyebrow{font-size:.67rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.7rem;}
+.display{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4vw,4rem);font-weight:700;line-height:1.08;color:var(--cream);margin-bottom:1.1rem;}
+.display em{font-style:italic;color:var(--gold);}
+.sh{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,2.5vw,2.2rem);font-weight:700;color:var(--cream);line-height:1.2;margin-bottom:.9rem;}
+.sh em{font-style:italic;color:var(--gold);}
+.lead{font-size:.97rem;color:#9a9080;font-weight:300;line-height:1.85;max-width:58ch;}
+.body{font-size:.9rem;color:#8a8070;line-height:1.9;margin-bottom:.9rem;}
+.rule{width:36px;height:2px;background:var(--gold);margin-bottom:1.6rem;}
+
+/* INNER PAGES */
+.inner{max-width:960px;margin:0 auto;}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start;}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;}
+
+/* STAT ROW */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:2.2rem;}
+.stat{background:var(--bg);padding:.9rem 1rem;text-align:center;}
+.sn{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:var(--gold);display:block;}
+.sl{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+
+/* BTNS */
+.btn{display:inline-block;font-family:'Outfit',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;padding:.65rem 1.6rem;border:none;cursor:pointer;border-radius:2px;transition:all .2s;}
+.btn-g{background:var(--gold);color:#0c0b09;}
+.btn-g:hover{opacity:.85;transform:translateY(-1px);}
+.btn-o{background:transparent;border:1px solid var(--border);color:var(--muted);}
+.btn-o:hover{border-color:var(--gold);color:var(--cream);}
+.btns{display:flex;gap:.8rem;margin-top:1.4rem;flex-wrap:wrap;}
+
+/* QUOTE PANEL */
+.qp{background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--gold);padding:1.5rem;}
+.qp blockquote{font-family:'Playfair Display',serif;font-style:italic;font-size:.97rem;color:var(--cream);line-height:1.65;margin-bottom:.6rem;}
+.qp cite{font-size:.65rem;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);}
+
+/* FEATURE LIST */
+.fl{list-style:none;display:flex;flex-direction:column;gap:.5rem;}
+.fl li{display:flex;align-items:center;gap:.7rem;font-size:.87rem;color:var(--muted);}
+.fl li::before{content:'→';color:var(--gold);font-size:.78rem;}
+
+/* CARD */
+.card{background:var(--panel);border:1px solid var(--border);padding:1.6rem;transition:border-color .25s;}
+.card:hover{border-color:rgba(201,151,58,.3);}
+.card-top{border-top:2px solid var(--gold);}
+
+/* STORY */
+.def-table{width:100%;border-collapse:collapse;margin:1.2rem 0;}
+.def-table tr{border-bottom:1px solid var(--border);}
+.def-table td{padding:.65rem .4rem;font-size:.88rem;}
+.def-table td:first-child{color:var(--cream);}
+.def-table td:last-child{color:var(--gold);font-weight:600;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;text-align:right;}
+.callout{border-left:3px solid var(--red);padding:1.1rem 1.4rem;background:rgba(155,48,48,.05);margin:1.3rem 0;}
+.callout p{font-size:.88rem;color:var(--cream);margin-bottom:.25rem;}
+
+/* CRAFT GRID */
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-top:1.3rem;}
+.cc{background:var(--bg);display:flex;gap:.9rem;align-items:flex-start;padding:1rem 1.2rem;transition:background .2s;}
+.cc:hover{background:var(--panel);}
+.cn{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--gold);opacity:.3;line-height:1;min-width:1.6rem;}
+.cc p{font-size:.85rem;color:var(--muted);line-height:1.55;}
+
+/* TABS */
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:1.8rem;}
+.tab{background:none;border:none;cursor:pointer;font-family:'Outfit',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);padding:.75rem 1.3rem;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .2s;}
+.tab.on{color:var(--cream);border-bottom-color:var(--gold);}
+.tab:hover{color:var(--cream);}
+.tb{display:none;}
+.tb.on{display:block;}
+.pl{list-style:none;}
+.pi{display:grid;grid-template-columns:2.2rem 1fr;gap:.7rem;align-items:baseline;padding:.8rem 0;border-bottom:1px solid var(--border);}
+.pi:last-child{border-bottom:none;}
+.pn{font-family:'Playfair Display',serif;font-size:1rem;color:var(--gold);opacity:.45;}
+.pi strong{display:block;font-size:.9rem;color:var(--cream);margin-bottom:.1rem;}
+.pi span{font-size:.82rem;color:var(--muted);}
+
+/* ABOUT */
+.bio-pic{width:120px;height:120px;border-radius:50%;overflow:hidden;border:2px solid var(--gold);background:var(--panel);display:flex;align-items:center;justify-content:center;font-size:2rem;margin-bottom:1rem;}
+.bio-pic img{width:100%;height:100%;object-fit:cover;}
+.cv{display:flex;gap:1.2rem;align-items:baseline;padding:.6rem 0;border-bottom:1px solid var(--border);}
+.cy{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);min-width:100px;flex-shrink:0;}
+.cr{font-size:.87rem;color:var(--cream);}
+.cp{font-size:.78rem;color:var(--muted);}
+.lnks{display:flex;gap:1rem;flex-wrap:wrap;margin-top:.9rem;}
+.lnk{font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(201,151,58,.3);padding-bottom:.1rem;transition:border-color .2s;}
+.lnk:hover{border-color:var(--gold);}
+
+/* COURSES */
+.ccard{background:var(--panel);border:1px solid var(--border);padding:1.8rem;transition:border-color .25s;display:flex;flex-direction:column;}
+.ccard:hover{border-color:rgba(201,151,58,.35);}
+.ctag{display:inline-block;font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;background:var(--gold-dim);color:var(--gold);padding:.22rem .65rem;border-radius:2px;margin-bottom:.9rem;}
+.cl{list-style:none;margin-top:.9rem;flex:1;}
+.cl li{font-size:.83rem;color:var(--muted);padding:.35rem 0;border-bottom:1px solid var(--border);display:flex;gap:.6rem;align-items:baseline;}
+.cl li:last-child{border-bottom:none;}
+.cl li::before{content:'→';color:var(--gold);font-size:.75rem;flex-shrink:0;}
+.cbox{background:var(--panel);border:1px solid var(--border);border-top:2px solid var(--gold);padding:1.8rem;margin-top:1.8rem;}
+.cbox h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--cream);margin-bottom:.7rem;}
+.cbox p{font-size:.87rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem;}
+.ci{display:flex;align-items:center;gap:.8rem;font-size:.83rem;color:var(--muted);padding:.45rem 0;border-bottom:1px solid var(--border);}
+.ci:last-of-type{border-bottom:none;}
+.ci a{color:var(--gold);text-decoration:none;}
+.ci a:hover{text-decoration:underline;}
+
+@media(max-width:720px){
+  html,body{overflow:auto;}
+  #stage{position:relative;top:auto;height:auto;overflow:visible;}
+  nav{position:fixed;}
+  .pg{position:relative;opacity:1;pointer-events:auto;transform:none;display:none;padding:2rem 1.2rem 3rem;}
+  .pg.on{display:block;}
+  #pg-home{grid-template-columns:1fr;height:auto;}
+  .h-left,.h-right{padding:2.5rem 1.5rem;}
+  .h-left{border-right:none;border-bottom:1px solid var(--border);}
+  .two,.three,.cgrid{grid-template-columns:1fr;}
+  .nav-links .nb:not(.cta){display:none;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo" onclick="go('home')">Create A <em>Screenplay</em></div>
+  <div class="nav-links">
+    <button class="nb on" data-p="home"       onclick="go('home')">Home</button>
+    <button class="nb"    data-p="story"       onclick="go('story')">Story</button>
+    <button class="nb"    data-p="craft"       onclick="go('craft')">The Craft</button>
+    <button class="nb"    data-p="principles"  onclick="go('principles')">Principles</button>
+    <button class="nb"    data-p="about"       onclick="go('about')">About</button>
+    <button class="nb cta" data-p="courses"   onclick="go('courses')">Courses</button>
+  </div>
+</nav>
+
+<div id="stage">
+
+<!-- HOME -->
+<div class="pg on" id="pg-home">
+  <div class="h-left">
+    <p class="eyebrow">Screenplay Writing Guide &amp; Mentoring</p>
+    <h1 class="display">Everybody can<br>write <em>a screenplay</em><br>— as long as you<br>know how.</h1>
+    <p class="lead">With logic, knowledge of the craft, and commitment to research — anyone who can think can create a great, original story for the screen.</p>
+    <div class="btns">
+      <button class="btn btn-g" onclick="go('courses')">Explore Courses</button>
+      <button class="btn btn-o" onclick="go('story')">Start Learning</button>
+    </div>
+    <div class="stats">
+      <div class="stat"><span class="sn">35+</span><span class="sl">Years in Film &amp; TV</span></div>
+      <div class="stat"><span class="sn">25+</span><span class="sl">Years Teaching</span></div>
+      <div class="stat"><span class="sn">3</span><span class="sl">Courses Offered</span></div>
+    </div>
+  </div>
+  <div class="h-right">
+    <div class="qp">
+      <blockquote>"There is no greater agony than bearing an untold story inside you."</blockquote>
+      <cite>— Maya Angelou</cite>
+    </div>
+    <div class="qp">
+      <blockquote>"When you do enough research, the story almost writes itself. Lines of development spring loose and you'll have choices galore."</blockquote>
+      <cite>— Robert McKee</cite>
+    </div>
+    <div style="background:var(--panel);border:1px solid var(--border);padding:1.4rem;">
+      <p class="eyebrow" style="margin-bottom:.7rem;">What you'll find here</p>
+      <ul class="fl">
+        <li>A complete Screenplay Writing Guide</li>
+        <li>Story theory, craft &amp; structure</li>
+        <li>Principles &amp; commandments of the craft</li>
+        <li>Live workshops, courses &amp; mentoring</li>
+        <li>Script analysis &amp; script coverage</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- STORY -->
+<div class="pg" id="pg-story">
+  <div class="inner">
+    <p class="eyebrow">What Is Story?</p>
+    <h2 class="sh">Story is how we <em>make sense</em> of the world.</h2>
+    <div class="rule"></div>
+    <div class="two">
+      <div>
+        <p class="body">What triggers the pleasure we feel when a story hooks us? Not lyrical language or vivid images — <strong style="color:var(--cream);">Curiosity is the trigger.</strong> The desire to find out what happens next. The STORY is what captivates the brain.</p>
+        <p class="body">Without knowing what a story is and how it works, you won't be able to write a screenplay. Many people think they have a great idea for a movie — but most of the time the idea doesn't include a real story at all. It's merely a description of what happened.</p>
+        <p class="body">From the very first sentence, a story must revolve around how someone solves an unexpected problem they simply can't avoid. The reader needs to sense this immediately. Nothing grabs the brain quicker than a surprise.</p>
+        <div class="callout">
+          <p style="font-weight:600;margin-bottom:.5rem;">Three things every reader's brain hunts for instantly:</p>
+          <p>→ &nbsp;Whose story is this?</p>
+          <p>→ &nbsp;What's happening here?</p>
+          <p>→ &nbsp;What is at stake?</p>
+        </div>
+        <p class="body" style="font-size:.78rem;color:var(--muted);">Based on Lisa Cron's teaching.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1.3rem;">
+        <div class="card card-top">
+          <p class="eyebrow">The Definition of Story</p>
+          <table class="def-table">
+            <tr><td>How what happens</td><td>The Plot</td></tr>
+            <tr><td>Affects someone who</td><td>The Protagonist</td></tr>
+            <tr><td>Is in pursuit of a difficult goal and</td><td>The Story Problem</td></tr>
+            <tr><td>How he or she changes as a result</td><td>What It's About</td></tr>
+          </table>
+        </div>
+        <div class="card">
+          <p class="eyebrow" style="margin-bottom:.7rem;">Three Types of Screenplay</p>
+          <p class="body" style="margin-bottom:.5rem;"><strong style="color:var(--cream);">Spec Script</strong> — Written speculatively, hoping to be purchased by a producer.</p>
+          <p class="body" style="margin-bottom:.5rem;"><strong style="color:var(--cream);">Commissioned Script</strong> — Written by hired professionals for a specific project.</p>
+          <p class="body" style="margin-bottom:0;"><strong style="color:var(--cream);">Shooting Script</strong> — Altered for production: scenes numbered, pages locked.</p>
+        </div>
+        <div class="qp">
+          <blockquote>"If you tell me, it's an essay. If you show me, it's a story."</blockquote>
+          <cite>— Barbara Greene</cite>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CRAFT -->
+<div class="pg" id="pg-craft">
+  <div class="inner">
+    <p class="eyebrow">The Craft of Screenplay Writing</p>
+    <h2 class="sh">Rules to follow — <em>or break.</em></h2>
+    <div class="rule"></div>
+    <div class="two" style="margin-bottom:1.8rem;">
+      <div>
+        <p class="body">Craft gives you the questions you need to answer. It maximizes your talent and radically reduces your rewriting time. When you know the rules, you break them <em>knowingly</em> — and that makes your screenplay original. When you break them because you never knew they existed, your screenplay becomes aimless, boring, or out of balance.</p>
+        <p class="body">You don't have to follow every rule — you just have to know them, and sense when to apply them and when not to. Learn the craft. Then practice it: write.</p>
+      </div>
+      <div class="qp" style="align-self:start;">
+        <blockquote>"The basis of the art of dramatic writing is in the creative interpretation of human motivation."</blockquote>
+        <cite>— Lajos Egri</cite>
+      </div>
+    </div>
+    <p class="eyebrow">What you learn when you study the craft:</p>
+    <div class="cgrid">
+      <div class="cc"><span class="cn">1</span><p>Storytelling — what makes a story work on screen</p></div>
+      <div class="cc"><span class="cn">2</span><p>What a story is — genre types and different media</p></div>
+      <div class="cc"><span class="cn">3</span><p>How to create unforgettable, three-dimensional characters</p></div>
+      <div class="cc"><span class="cn">4</span><p>The essential elements of professional screenwriting</p></div>
+      <div class="cc"><span class="cn">5</span><p>How to structure your main plot and all sub-plots</p></div>
+      <div class="cc"><span class="cn">6</span><p>How to write dialogue that reveals character and drives story</p></div>
+      <div class="cc"><span class="cn">7</span><p>How to create genuine emotion in your audience</p></div>
+      <div class="cc"><span class="cn">8</span><p>How conflict drives your story at every level</p></div>
+      <div class="cc"><span class="cn">9</span><p>How to create powerful turning points and pivot scenes</p></div>
+      <div class="cc"><span class="cn">10</span><p>What endings work best and which audiences prefer</p></div>
+    </div>
+    <div class="qp" style="margin-top:1.8rem;max-width:500px;">
+      <blockquote>"I don't begin a novel or a screenplay until I know the ending. I have to hear the actual sentences. I have to know what atmosphere the words convey."</blockquote>
+      <cite>— John Irving</cite>
+    </div>
+  </div>
+</div>
+
+<!-- PRINCIPLES -->
+<div class="pg" id="pg-principles">
+  <div class="inner">
+    <p class="eyebrow">Principles &amp; Commandments</p>
+    <h2 class="sh">Rules to live by as a <em>screenwriter.</em></h2>
+    <div class="rule"></div>
+    <div class="tabs">
+      <button class="tab on" onclick="tab(event,'tp')">12 Principles</button>
+      <button class="tab"    onclick="tab(event,'tc')">10 Commandments</button>
+    </div>
+    <div id="tp" class="tb on">
+      <p class="body" style="margin-bottom:1rem;">by Daniel Martin Eckhart</p>
+      <ul class="pl">
+        <li class="pi"><span class="pn">01</span><div><strong>Write daily.</strong><span>You need a strong writing muscle to succeed — so exercise it.</span></div></li>
+        <li class="pi"><span class="pn">02</span><div><strong>Enjoy procrastination.</strong><span>Procrastination is life — never feel guilty about it.</span></div></li>
+        <li class="pi"><span class="pn">03</span><div><strong>Trust your instincts.</strong><span>Learn from others but never depend on them.</span></div></li>
+        <li class="pi"><span class="pn">04</span><div><strong>Believe in yourself.</strong><span>If you don't, no one ever will.</span></div></li>
+        <li class="pi"><span class="pn">05</span><div><strong>Suck it up.</strong><span>Learn from rejection — it'll make you stronger.</span></div></li>
+        <li class="pi"><span class="pn">06</span><div><strong>Know your world.</strong><span>Make movie history, films and scripts part of your essence.</span></div></li>
+        <li class="pi"><span class="pn">07</span><div><strong>Network.</strong><span>You'll never have a career if you don't get out there.</span></div></li>
+        <li class="pi"><span class="pn">08</span><div><strong>Love what you do.</strong><span>If writing doesn't make you happy, stop.</span></div></li>
+        <li class="pi"><span class="pn">09</span><div><strong>Be generous.</strong><span>Spread your ideas — don't hide them.</span></div></li>
+        <li class="pi"><span class="pn">10</span><div><strong>Be a craftsman/woman.</strong><span>It may become art in time.</span></div></li>
+        <li class="pi"><span class="pn">11</span><div><strong>Deliver on time.</strong><span>Never miss a deadline — not even one you gave yourself.</span></div></li>
+        <li class="pi"><span class="pn">12</span><div><strong>Collaborate.</strong><span>You'll never make a film happen on your own.</span></div></li>
+      </ul>
+    </div>
+    <div id="tc" class="tb">
+      <p class="body" style="margin-bottom:1rem;">by Robert McKee</p>
+      <ul class="pl">
+        <li class="pi"><span class="pn">I</span><div><strong>Thou shalt not take the crisis out of the protagonist's hands.</strong><span>The anti-deus ex machina commandment.</span></div></li>
+        <li class="pi"><span class="pn">II</span><div><strong>Thou shalt not make life easy for the protagonist.</strong><span>Nothing progresses in a story except through conflict.</span></div></li>
+        <li class="pi"><span class="pn">III</span><div><strong>Thou shalt not give exposition for exposition's sake.</strong><span>Dramatize it. Convert exposition to ammunition.</span></div></li>
+        <li class="pi"><span class="pn">IV</span><div><strong>Thou shalt not use false mystery or cheap surprise.</strong><span></span></div></li>
+        <li class="pi"><span class="pn">V</span><div><strong>Thou shalt respect your audience.</strong><span>The anti-hack commandment.</span></div></li>
+        <li class="pi"><span class="pn">VI</span><div><strong>Thou shalt know your world as God knows this one.</strong><span>The pro-research commandment.</span></div></li>
+        <li class="pi"><span class="pn">VII</span><div><strong>Thou shalt not complicate when complexity is better.</strong><span>Use all three levels: Intra-personal, Inter-personal, Extra-personal.</span></div></li>
+        <li class="pi"><span class="pn">VIII</span><div><strong>Thou shalt seek the end of the line.</strong><span>Take characters to the farthest reaches of conflict within the story's realm of probability.</span></div></li>
+        <li class="pi"><span class="pn">IX</span><div><strong>Thou shalt not write on the nose.</strong><span>Put a subtext under every text.</span></div></li>
+        <li class="pi"><span class="pn">X</span><div><strong>Thou shalt rewrite.</strong><span></span></div></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="pg" id="pg-about">
+  <div class="inner">
+    <p class="eyebrow">About the Instructor</p>
+    <h2 class="sh">35+ years in film &amp; television. <em>Dedicated to your craft.</em></h2>
+    <div class="rule"></div>
+    <div class="two">
+      <div>
+        <div class="bio-pic">
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgJzodFRndAxF3M8ER4iuea9WA-ITiiOB-DTJEzgEYPk4xB9Khl7PGXlc7Z-X4G_1ogeNVNeUNTM6qpXkdlJpCF22sFUxLaFDgjbe1e7c-Ys425rX3kMfrEcH8_IA5Yxw/s220/ProfPic.jpg" alt="Gabriel D. Angi" onerror="this.parentElement.innerHTML='G'">
+        </div>
+        <p style="font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--cream);">Gabriel D. Angi</p>
+        <p style="font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;">Screenwriter &amp; Instructor</p>
+        <div class="lnks">
+          <a href="http://www.imdb.com/name/nm0029825/" target="_blank" class="lnk">IMDB Credits</a>
+          <a href="http://www.instagram.com/gabriel.d.angi" target="_blank" class="lnk">Instagram</a>
+          <a href="mailto:gabriel.d.angi@gmail.com" class="lnk">Email</a>
+        </div>
+        <div style="margin-top:1.3rem;padding:1.2rem;background:var(--panel);border:1px solid var(--border);">
+          <p class="body" style="margin:0;font-size:.83rem;">Graduate of the <strong style="color:var(--cream);">Hungarian University of Cinematic Arts</strong>, Budapest. Mentored by <strong style="color:var(--cream);">Bart Gavigan</strong> — screenplay writer, script-doctor, and lecturer (London, England).</p>
+        </div>
+      </div>
+      <div>
+        <p class="body">Gabriel D. Angi has spent more than thirty-five years working across the full spectrum of film and television — feature films, TV-films, TV series, documentaries, music videos, and commercials — in positions from Unit Manager to Director to Screenplay Writer.</p>
+        <p class="body">Today he teaches screenplay writing in schools, colleges, libraries, and film clubs across Canada and internationally, with a focus on equipping writers with real, usable craft knowledge.</p>
+        <div style="margin-top:1.3rem;">
+          <p class="eyebrow" style="margin-bottom:.7rem;">Teaching History</p>
+          <div class="cv"><span class="cy">2018 – Present</span><div><div class="cr">Successful Screenplay Writer 101 Mentoring</div><div class="cp">3–12 months · in-person &amp; online</div></div></div>
+          <div class="cv"><span class="cy">2015 – Present</span><div><div class="cr">Creative Screenplay Writing — 4-Week Workshop</div><div class="cp">Public Libraries, Hamilton · Burlington · St. Catharines, ON</div></div></div>
+          <div class="cv"><span class="cy">2014 – 2015</span><div><div class="cr">Screenplay Writing in the ESL Classroom</div><div class="cp">Conference Speaker, TESL Ontario, Toronto</div></div></div>
+          <div class="cv"><span class="cy">2007 – 2009</span><div><div class="cr">Basics of Screenplay Writing &amp; Story Theories</div><div class="cp">Calvary Elementary School, St. Catharines, ON</div></div></div>
+          <div class="cv"><span class="cy">2003 – 2004</span><div><div class="cr">"Screenplay to Screen" — Guest Speaker</div><div class="cp">Brock University, St. Catharines</div></div></div>
+          <div class="cv"><span class="cy">1998 – 2001</span><div><div class="cr">Communication Theory &amp; Media Studies</div><div class="cp">Central European Academy, Budapest</div></div></div>
+          <div class="cv"><span class="cy">1995 – 1998</span><div><div class="cr">Screenplay Writing Teacher</div><div class="cp">GGCA International School, Budapest</div></div></div>
+          <div class="cv"><span class="cy">1999</span><div><div class="cr">The Story and The Screenplay — Lecturer</div><div class="cp">University of Theatre and Film, Budapest</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COURSES -->
+<div class="pg" id="pg-courses">
+  <div class="inner">
+    <p class="eyebrow">Classes &amp; Courses</p>
+    <h2 class="sh">Anchor your writing <em>at a new level.</em></h2>
+    <div class="rule"></div>
+    <p class="lead" style="margin-bottom:1.8rem;font-size:.93rem;">My goal is to equip you for the challenges of writing screenplays — to give you the charts you need to navigate to the finish line, and the skill-set to sustain the journey.</p>
+    <div class="three">
+      <div class="ccard">
+        <span class="ctag">3–12 Month Mentoring</span>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--cream);margin-bottom:.5rem;">The Successful Screenplay Writer 101</h3>
+        <p class="body" style="font-size:.84rem;">Weekly in-person and online meetings — 1 to 3 hours per week, set up as requested.</p>
+        <ul class="cl">
+          <li>All you need to know about the craft</li>
+          <li>Creating achievable writing goals</li>
+          <li>Masterminding your story</li>
+          <li>Honest professional feedback</li>
+          <li>Accountability &amp; emotional support</li>
+        </ul>
+      </div>
+      <div class="ccard">
+        <span class="ctag">4-Week Workshop · Level I</span>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--cream);margin-bottom:.5rem;">Creative Screenplay Writing — Basics</h3>
+        <p class="body" style="font-size:.84rem;">4 × 5-hour sessions. Introducing the fundamentals of the craft and how to become a writer.</p>
+        <ul class="cl">
+          <li>What creativity is &amp; the basics of art</li>
+          <li>Story, emotions, brainstorming &amp; the pitch</li>
+          <li>Logline, tagline &amp; the screenplay</li>
+          <li>Building characters &amp; story paradigms</li>
+          <li>3-Act structure, plot points &amp; subtext</li>
+          <li>Film genres, formatting &amp; deadly flaws</li>
+        </ul>
+      </div>
+      <div class="ccard">
+        <span class="ctag">4-Week Workshop · Level II</span>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--cream);margin-bottom:.5rem;">Creative Screenplay Writing — Advanced</h3>
+        <p class="body" style="font-size:.84rem;">4 × 5-hour sessions. Developing your skills and writing your screenplay.</p>
+        <ul class="cl">
+          <li>Developing your unique voice</li>
+          <li>Opening horizons to different methods</li>
+          <li>Advanced structural techniques</li>
+          <li>Writing your complete screenplay</li>
+          <li>Peer review &amp; workshop critique</li>
+        </ul>
+      </div>
+    </div>
+    <div class="cbox">
+      <h3>Get in Touch</h3>
+      <p>Interested in a course, mentoring, script analysis, or coverage? Reach out directly — all offerings are available in-person and online.</p>
+      <div class="ci"><span>✉</span><a href="mailto:gabriel.d.angi@gmail.com?subject=Course Inquiry">gabriel.d.angi@gmail.com</a></div>
+      <div class="ci"><span>📷</span><a href="http://www.instagram.com/gabriel.d.angi" target="_blank">@gabriel.d.angi on Instagram</a></div>
+      <div class="ci"><span>🎬</span><a href="http://www.imdb.com/name/nm0029825/" target="_blank">Film credits on IMDB</a></div>
+      <a href="mailto:gabriel.d.angi@gmail.com?subject=Course Inquiry" class="btn btn-g" style="margin-top:1.2rem;display:inline-block;">Send an Email</a>
+    </div>
+  </div>
+</div>
+
+</div><!-- /stage -->
+
+<script>
+function go(id){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
+  const pg=document.getElementById('pg-'+id);
+  if(pg){pg.classList.add('on');pg.scrollTop=0;}
+  const bt=document.querySelector('[data-p="'+id+'"]');
+  if(bt)bt.classList.add('on');
+}
+function tab(e,id){
+  const wrap=e.target.closest('.pg');
+  wrap.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  wrap.querySelectorAll('.tb').forEach(t=>t.classList.remove('on'));
+  e.target.classList.add('on');
+  document.getElementById(id).classList.add('on');
+}
+</script>
+</body>
+</html>
