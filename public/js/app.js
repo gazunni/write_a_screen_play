@@ -1,25 +1,58 @@
+/* ── MOBILE DETECTION ────────────────────────────────────── */
+function isMobile() {
+  return window.innerWidth <= 768;
+}
+
+function setMobileClass() {
+  if (isMobile()) {
+    document.body.classList.add('is-mobile');
+  } else {
+    document.body.classList.remove('is-mobile');
+  }
+}
+
+window.addEventListener('resize', setMobileClass);
+setMobileClass();
+
 /* ── PAGE NAVIGATION ─────────────────────────────────────── */
 function go(id) {
-  document.querySelectorAll('.pg').forEach(p => p.classList.remove('on'));
-  document.querySelectorAll('.nb').forEach(b => b.classList.remove('on'));
+  // Hide all pages
+  document.querySelectorAll('.pg').forEach(function(p) {
+    p.classList.remove('on');
+  });
+  // Deactivate all nav buttons
+  document.querySelectorAll('.nb').forEach(function(b) {
+    b.classList.remove('on');
+  });
 
+  // Show target page
   var pg = document.getElementById('pg-' + id);
-  if (pg) { pg.classList.add('on'); pg.scrollTop = 0; }
+  if (pg) {
+    pg.classList.add('on');
+    // On mobile scroll to top of page, on desktop scroll the panel
+    if (isMobile()) {
+      window.scrollTo(0, 0);
+    } else {
+      pg.scrollTop = 0;
+    }
+  }
 
+  // Activate nav button
   var bt = document.querySelector('[data-p="' + id + '"]');
   if (bt) bt.classList.add('on');
 
-  // Close mobile menu if open
-  document.getElementById('nav-links').classList.remove('open');
+  // Close mobile menu
+  var navLinks = document.getElementById('nav-links');
+  if (navLinks) navLinks.classList.remove('open');
 
-  // Update browser URL hash without reload
+  // Update URL hash
   history.pushState(null, '', '#' + id);
 
   // Page-specific init
   if (id === 'story')   setTimeout(buildWYS, 80);
   if (id === 'contact') setTimeout(initMathChallenge, 50);
 
-  // Track page view in GA if available
+  // GA tracking
   if (typeof gtag !== 'undefined') {
     gtag('event', 'page_view', { page_title: id, page_path: '/#' + id });
   }
@@ -35,8 +68,24 @@ function switchTab(e, id) {
 }
 
 /* ── HAMBURGER MENU ──────────────────────────────────────── */
-document.getElementById('hamburger').addEventListener('click', () => {
-  document.getElementById('nav-links').classList.toggle('open');
+var hamburger = document.getElementById('hamburger');
+if (hamburger) {
+  hamburger.addEventListener('click', function(e) {
+    e.stopPropagation();
+    var navLinks = document.getElementById('nav-links');
+    if (navLinks) navLinks.classList.toggle('open');
+  });
+}
+
+// Close menu if user taps outside it
+document.addEventListener('click', function(e) {
+  var navLinks = document.getElementById('nav-links');
+  var hamburgerEl = document.getElementById('hamburger');
+  if (navLinks && navLinks.classList.contains('open')) {
+    if (!navLinks.contains(e.target) && e.target !== hamburgerEl) {
+      navLinks.classList.remove('open');
+    }
+  }
 });
 
 /* ── HASH ROUTING ON LOAD ────────────────────────────────── */
