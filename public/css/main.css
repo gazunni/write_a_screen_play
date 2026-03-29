@@ -537,32 +537,67 @@ body {
 @media (max-width: 768px) {
   html, body { overflow: auto; }
 
-  #stage { position: relative; top: auto; height: auto; overflow: visible; }
-  #nav   { position: fixed; }
-
+  /* Nav stays fixed at top */
+  #nav { position: fixed; }
   body { padding-top: var(--nav-h); }
 
+  /* Stage becomes normal flow */
+  #stage {
+    position: relative;
+    top: auto; left: auto; right: auto; bottom: auto;
+    height: auto;
+    overflow: visible;
+  }
+
+  /* Pages stack in flow — hidden by default, shown when active */
   .pg {
-    position: relative; opacity: 1;
-    pointer-events: auto; transform: none; display: none;
+    position: relative;
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+    display: none;
+    inset: auto;
   }
   .pg.on { display: block; }
 
+  /* Home page single column */
   #pg-home { grid-template-columns: 1fr; height: auto; }
   .h-left  { padding: 2.5rem 1.5rem; border-right: none; border-bottom: 1px solid var(--border); }
   .h-right { display: block; }
   .h-bg-img { display: none; }
 
+  /* Inner page padding */
   .inner { padding: 2rem 1.2rem 3rem; }
 
+  /* Collapse all grids to single column */
   .two, .three, .cgrid,
-  .contact-block, .form-row { grid-template-columns: 1fr; }
+  .contact-page-grid,
+  .form-row { grid-template-columns: 1fr; }
 
-  .nav-links { display: none; flex-direction: column; position: fixed; top: var(--nav-h); left: 0; right: 0; background: var(--ink); padding: 1rem; gap: .3rem; border-bottom: 2px solid var(--red); }
+  /* Hamburger nav */
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    top: var(--nav-h); left: 0; right: 0;
+    background: var(--ink);
+    padding: 1rem;
+    gap: .3rem;
+    border-bottom: 2px solid var(--red);
+    z-index: 99;
+  }
   .nav-links.open { display: flex; }
   .nb { width: 100%; text-align: left; padding: .7rem 1rem; }
   .nb.cta { margin-left: 0; margin-top: .3rem; }
   .hamburger { display: block; }
+
+  /* Reset hero button sizing on mobile */
+  .btns .btn-r,
+  .btns .btn-o {
+    font-size: .72rem;
+    padding: .65rem 1.4rem;
+    letter-spacing: .13em;
+  }
 }
 
 /* ── WYS ANIMATED WORD STAGE ─────────────────────────────── */
@@ -746,7 +781,4 @@ body {
 }
 
 /* ── MOBILE CONTACT ──────────────────────────────────────── */
-@media (max-width: 768px) {
-  .contact-page-grid { grid-template-columns: 1fr; }
-  .form-row { grid-template-columns: 1fr; }
-}
+
