@@ -48,65 +48,111 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ── CONTACT FORM ────────────────────────────────────────── */
-const form       = document.getElementById('contact-form');
-const submitBtn  = document.getElementById('submit-btn');
-const statusEl   = document.getElementById('form-status');
+var form      = document.getElementById('contact-form');
+var submitBtn = document.getElementById('submit-btn');
+var statusEl  = document.getElementById('form-status');
 
 if (form) {
-  form.addEventListener('submit', async (e) => {
+  form.addEventListener('submit', function(e) {
     e.preventDefault();
 
-    const name    = form.name.value.trim();
-    const email   = form.email.value.trim();
-    const message = form.message.value.trim();
+    // ── Honeypot check — bail silently if filled ──────────
+    var honeypot = form.querySelector('#website');
+    if (honeypot && honeypot.value !== '') {
+      // Bot detected — fake success to avoid tipping them off
+      setStatus('Your message has been sent!', 'success');
+      return;
+    }
 
-    // Client-side validation
-    if (!name || !email || !message) {
-      setStatus('Please fill in all required fields.', 'error');
+    // ── Collect fields ────────────────────────────────────
+    var name     = (form.querySelector('#cf-name').value   || '').trim();
+    var email    = (form.querySelector('#cf-email').value  || '').trim();
+    var phone    = (form.querySelector('#cf-phone').value  || '').trim();
+    var goal     = (form.querySelector('#cf-goal').value   || '').trim();
+    var message  = (form.querySelector('#cf-message').value|| '').trim();
+    var heard    = (form.querySelector('#cf-heard').value  || '').trim();
+
+    // Checked courses
+    var courseBoxes  = form.querySelectorAll('input[name="courses"]:checked');
+    var courses      = Array.prototype.map.call(courseBoxes, function(cb){ return cb.value; });
+
+    // Radio values
+    var industryEl  = form.querySelector('input[name="in_industry"]:checked');
+    var preferEl    = form.querySelector('input[name="preferred_contact"]:checked');
+    var inIndustry  = industryEl  ? industryEl.value  : '';
+    var preferred   = preferEl   ? preferEl.value    : 'Email';
+
+    // ── Client-side validation ────────────────────────────
+    if (!name || !email || !goal) {
+      setStatus('Please fill in all required fields (name, email, goal).', 'error');
       return;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setStatus('Please enter a valid email address.', 'error');
       return;
     }
+    if (courses.length === 0) {
+      setStatus('Please select at least one course you are interested in.', 'error');
+      return;
+    }
 
-    submitBtn.disabled = true;
+    submitBtn.disabled    = true;
     submitBtn.textContent = 'Sending…';
     setStatus('', '');
 
-    try {
-      const res = await fetch('/contact', {
-        method: 'POST',
+    // ── reCAPTCHA v3 token then POST ──────────────────────
+    function doSubmit(recaptchaToken) {
+      fetch('/contact', {
+        method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name,
-          email,
-          interest:   form.interest.value,
-          experience: form.experience.value,
-          message
+          name:       name,
+          email:      email,
+          phone:      phone,
+          goal:       goal,
+          message:    message,
+          courses:    courses,
+          inIndustry: inIndustry,
+          preferred:  preferred,
+          heardFrom:  heard,
+          recaptchaToken: recaptchaToken || ''
         })
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        if (data.ok) {
+          setStatus(data.message, 'success');
+          form.reset();
+        } else {
+          setStatus(data.error || 'Something went wrong. Please try again.', 'error');
+        }
+      })
+      .catch(function() {
+        setStatus('Network error. Please email gabriel.d.angi@gmail.com directly.', 'error');
+      })
+      .finally(function() {
+        submitBtn.disabled    = false;
+        submitBtn.textContent = 'Send Message';
       });
+    }
 
-      const data = await res.json();
-
-      if (data.ok) {
-        setStatus(data.message, 'success');
-        form.reset();
-      } else {
-        setStatus(data.error || 'Something went wrong. Please try again.', 'error');
-      }
-    } catch (err) {
-      setStatus('Network error. Please email gabriel.d.angi@gmail.com directly.', 'error');
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Send Message';
+    // Execute reCAPTCHA — gracefully skip if key not yet configured
+    if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.execute === 'function') {
+      grecaptcha.ready(function() {
+        grecaptcha.execute('RECAPTCHA_SITE_KEY', { action: 'contact' })
+          .then(function(token) { doSubmit(token); })
+          .catch(function()     { doSubmit('');    });
+      });
+    } else {
+      doSubmit('');
     }
   });
 }
 
 function setStatus(msg, type) {
+  if (!statusEl) return;
   statusEl.textContent = msg;
-  statusEl.className = 'form-status' + (type ? ' ' + type : '');
+  statusEl.className   = 'form-status' + (type ? ' ' + type : '');
 }
 
 /* ── WYS ANIMATED WORD STAGE ─────────────────────────────── */
