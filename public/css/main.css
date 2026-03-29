@@ -591,6 +591,17 @@ body {
   text-shadow: 0 0 24px rgba(176, 28, 28, 0.6);
 }
 
+.wys-payoff {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: .95rem;
+  color: var(--ink-mid);
+  line-height: 1.6;
+  border-left: 3px solid var(--red);
+  padding-left: 1rem;
+  margin-top: .2rem;
+}
+
 /* ── CONTACT PAGE ────────────────────────────────────────── */
 .contact-page-grid {
   display: grid;
