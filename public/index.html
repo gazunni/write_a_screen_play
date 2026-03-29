@@ -26,6 +26,9 @@
   <!-- Styles -->
   <link rel="stylesheet" href="/css/main.css">
 
+  <!-- reCAPTCHA v3 — replace key via Railway env or directly -->
+  <script src="https://www.google.com/recaptcha/api.js?render=RECAPTCHA_SITE_KEY"></script>
+
   <!-- Google Analytics — replace G-XXXXXXXXXX via Railway env var or directly -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
   <script>
@@ -47,7 +50,8 @@
       <button class="nb"     data-p="craft"       onclick="go('craft')">The Craft</button>
       <button class="nb"     data-p="principles"  onclick="go('principles')">Principles</button>
       <button class="nb"     data-p="about"       onclick="go('about')">About</button>
-      <button class="nb cta" data-p="courses"     onclick="go('courses')">Courses</button>
+      <button class="nb"     data-p="courses"     onclick="go('courses')">Courses</button>
+      <button class="nb cta" data-p="contact"     onclick="go('contact')">Contact</button>
     </div>
   </nav>
 
@@ -327,59 +331,156 @@
         </div>
 
         <!-- CONTACT FORM -->
-        <div class="contact-block">
-          <div class="contact-intro">
-            <h3>Ready to write your story?</h3>
-            <p>Interested in a course, mentoring, script analysis, or coverage? Send a message and Gabriel will get back to you shortly. All offerings available in-person and online.</p>
-            <div class="contact-links">
-              <a href="mailto:gabriel.d.angi@gmail.com" class="lnk">gabriel.d.angi@gmail.com</a>
-              <a href="http://www.instagram.com/gabriel.d.angi" target="_blank" rel="noopener" class="lnk">Instagram</a>
-              <a href="http://www.imdb.com/name/nm0029825/" target="_blank" rel="noopener" class="lnk">IMDB</a>
+        <div class="courses-cta">
+          <p>Ready to take the next step?</p>
+          <button class="btn btn-r" onclick="go('contact')">Get In Touch</button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- CONTACT -->
+    <div class="pg" id="pg-contact">
+      <div class="inner">
+        <p class="scene-hdr">INT. GABRIEL'S OFFICE — ANY TIME &nbsp;·&nbsp; Get In Touch</p>
+        <h2 class="sh">Let's talk about <em>your story.</em></h2>
+        <div class="rule"></div>
+
+        <div class="contact-page-grid">
+
+          <!-- LEFT: info -->
+          <div class="contact-info-col">
+            <p class="body">Whether you're a complete beginner with an idea, or a writer looking to take your screenplay to the next level — reach out. All courses and mentoring are available in-person and online.</p>
+
+            <div class="contact-info-block">
+              <p class="eyebrow" style="margin-bottom:1rem;">Direct Contact</p>
+              <div class="ci"><span class="ci-icon">✉</span><a href="mailto:gabriel.d.angi@gmail.com">gabriel.d.angi@gmail.com</a></div>
+              <div class="ci"><span class="ci-icon">📷</span><a href="http://www.instagram.com/gabriel.d.angi" target="_blank" rel="noopener">@gabriel.d.angi</a></div>
+              <div class="ci"><span class="ci-icon">🎬</span><a href="http://www.imdb.com/name/nm0029825/" target="_blank" rel="noopener">IMDB Film Credits</a></div>
+            </div>
+
+            <div class="contact-courses-ref">
+              <p class="eyebrow" style="margin-bottom:.8rem;">Courses Available</p>
+              <div class="course-ref-item">
+                <span class="course-ref-num">01</span>
+                <div>
+                  <strong>The Successful Screenplay Writer 101</strong>
+                  <span>3–12 month mentoring</span>
+                </div>
+              </div>
+              <div class="course-ref-item">
+                <span class="course-ref-num">02</span>
+                <div>
+                  <strong>Creative Screenplay Writing — Level I</strong>
+                  <span>4-week basics workshop</span>
+                </div>
+              </div>
+              <div class="course-ref-item">
+                <span class="course-ref-num">03</span>
+                <div>
+                  <strong>Creative Screenplay Writing — Level II</strong>
+                  <span>4-week advanced workshop</span>
+                </div>
+              </div>
             </div>
           </div>
-          <form id="contact-form" class="contact-form" novalidate>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="name">Name <span class="req">*</span></label>
-                <input type="text" id="name" name="name" required placeholder="Your name">
+
+          <!-- RIGHT: form -->
+          <div class="contact-form-col">
+            <form id="contact-form" class="contact-form" novalidate>
+
+              <!-- Honeypot — hidden from humans, bots fill it in -->
+              <div class="hp-field" aria-hidden="true">
+                <label for="website">Website</label>
+                <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
               </div>
-              <div class="form-group">
-                <label for="email">Email <span class="req">*</span></label>
-                <input type="email" id="email" name="email" required placeholder="your@email.com">
+
+              <!-- Name + Phone -->
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="cf-name">Full Name <span class="req">*</span></label>
+                  <input type="text" id="cf-name" name="name" required placeholder="Your full name">
+                </div>
+                <div class="form-group">
+                  <label for="cf-phone">Phone Number</label>
+                  <input type="tel" id="cf-phone" name="phone" placeholder="+1 (000) 000-0000">
+                </div>
               </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="interest">I'm interested in</label>
-                <select id="interest" name="interest">
-                  <option value="">Select one…</option>
-                  <option>Mentoring (3–12 months)</option>
-                  <option>Level I Workshop</option>
-                  <option>Level II Workshop</option>
-                  <option>Script Analysis / Coverage</option>
-                  <option>General Question</option>
-                </select>
+
+              <!-- Email + Preferred contact -->
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="cf-email">Email Address <span class="req">*</span></label>
+                  <input type="email" id="cf-email" name="email" required placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                  <label>Preferred Contact Method</label>
+                  <div class="radio-group">
+                    <label class="radio-label"><input type="radio" name="preferred_contact" value="Email" checked> Email</label>
+                    <label class="radio-label"><input type="radio" name="preferred_contact" value="Phone"> Phone</label>
+                  </div>
+                </div>
               </div>
+
+              <!-- Course interest checkboxes -->
               <div class="form-group">
-                <label for="experience">Writing experience</label>
-                <select id="experience" name="experience">
-                  <option value="">Select one…</option>
-                  <option>Complete beginner</option>
-                  <option>Some writing experience</option>
-                  <option>Working on a screenplay now</option>
-                  <option>Have completed a screenplay</option>
-                </select>
+                <label>Course Interest <span class="req">*</span></label>
+                <div class="checkbox-group">
+                  <label class="check-label"><input type="checkbox" name="courses" value="Mentoring 101"> The Successful Screenplay Writer 101 — Mentoring</label>
+                  <label class="check-label"><input type="checkbox" name="courses" value="Level I Workshop"> Creative Screenplay Writing — Level I Workshop</label>
+                  <label class="check-label"><input type="checkbox" name="courses" value="Level II Workshop"> Creative Screenplay Writing — Level II Workshop</label>
+                  <label class="check-label"><input type="checkbox" name="courses" value="All Courses"> All courses — I'd like to know more about everything</label>
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <label for="message">Message <span class="req">*</span></label>
-              <textarea id="message" name="message" rows="4" required placeholder="Tell Gabriel what you're working on…"></textarea>
-            </div>
-            <div class="form-footer">
-              <button type="submit" class="btn btn-r" id="submit-btn">Send Message</button>
-              <p class="form-status" id="form-status"></p>
-            </div>
-          </form>
+
+              <!-- Industry + How did you hear -->
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Are you in the film/TV industry?</label>
+                  <div class="radio-group">
+                    <label class="radio-label"><input type="radio" name="in_industry" value="Yes"> Yes</label>
+                    <label class="radio-label"><input type="radio" name="in_industry" value="No" checked> No</label>
+                    <label class="radio-label"><input type="radio" name="in_industry" value="Adjacent"> Adjacent field</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="cf-heard">How did you hear about us?</label>
+                  <select id="cf-heard" name="heard_from">
+                    <option value="">Select one…</option>
+                    <option>Google / Web Search</option>
+                    <option>Instagram</option>
+                    <option>Word of mouth</option>
+                    <option>Library / Event</option>
+                    <option>IMDB</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Goal -->
+              <div class="form-group">
+                <label for="cf-goal">Your Goal <span class="req">*</span></label>
+                <input type="text" id="cf-goal" name="goal" required placeholder="In one sentence — what do you want to achieve?">
+              </div>
+
+              <!-- Message -->
+              <div class="form-group">
+                <label for="cf-message">Anything else you'd like Gabriel to know?</label>
+                <textarea id="cf-message" name="message" rows="3" placeholder="Optional — your idea, current project, questions…"></textarea>
+              </div>
+
+              <!-- Submit -->
+              <div class="form-footer">
+                <button type="submit" class="btn btn-r" id="submit-btn">
+                  Send Message
+                </button>
+                <p class="form-status" id="form-status"></p>
+              </div>
+
+              <p class="recaptcha-note">Protected by reCAPTCHA — <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy</a> &amp; <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms</a></p>
+
+            </form>
+          </div>
         </div>
       </div>
     </div>
