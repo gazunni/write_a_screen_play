@@ -709,12 +709,6 @@ body {
 .form-status.success { color: #6abf69; }
 .form-status.error   { color: #e07070; }
 
-.recaptcha-note {
-  font-size: .68rem; color: rgba(245,240,232,.3);
-  margin-top: .3rem;
-}
-.recaptcha-note a { color: rgba(245,240,232,.4); }
-
 /* Courses page simple CTA */
 .courses-cta {
   margin-top: 2rem;
