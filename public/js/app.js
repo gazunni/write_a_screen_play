@@ -113,54 +113,106 @@ function setStatus(msg, type) {
 var wysInterval = null;
 
 function buildWYS() {
-  const stage = document.getElementById('wys-stage');
+  var stage = document.getElementById('wys-stage');
   if (!stage) return;
-
-  // Already built — just ensure interval is running
   if (stage.children.length > 0) return;
 
-  const words = [
+  var words = [
     'WRITE', 'YOUR', 'STORY', 'CHARACTER', 'PLOT',
     'CONFLICT', 'DIALOGUE', 'STRUCTURE', 'ACT', 'SCENE',
     'SUBTEXT', 'TENSION', 'CLIMAX', 'VOICE', 'DRAFT',
     'REWRITE', 'TRUTH', 'CRAFT', 'VISION', 'FADE IN'
   ];
-  const sizes = [11, 13, 15, 18, 22, 26, 14, 17, 20, 12];
+
+  // Wide size range — tiny whispers to bold statements
+  var sizes = [9, 11, 14, 10, 20, 13, 24, 11, 17, 9, 22, 12, 16, 10, 26, 13, 19, 11, 15, 10];
+
+  // Distinct resting colour per word — muted tones on dark bg
+  var restColors = [
+    'rgba(180,140,100,0.35)',  // warm tan
+    'rgba(140,170,160,0.35)',  // sage
+    'rgba(180,100,100,0.40)',  // dusty red
+    'rgba(130,150,180,0.35)',  // slate blue
+    'rgba(170,160,120,0.35)',  // khaki
+    'rgba(160,120,160,0.35)',  // mauve
+    'rgba(120,170,140,0.35)',  // mint
+    'rgba(190,150,90,0.35)',   // gold
+    'rgba(150,130,170,0.35)',  // lavender
+    'rgba(170,130,110,0.35)',  // terracotta
+    'rgba(110,160,170,0.35)',  // teal
+    'rgba(175,145,125,0.35)',  // blush
+    'rgba(140,175,140,0.35)',  // soft green
+    'rgba(165,135,165,0.35)',  // thistle
+    'rgba(185,155,95,0.35)',   // amber
+    'rgba(125,155,175,0.35)',  // steel blue
+    'rgba(170,120,120,0.35)',  // rose
+    'rgba(145,170,145,0.35)',  // moss
+    'rgba(190,160,100,0.35)',  // harvest
+    'rgba(135,145,165,0.35)'   // periwinkle
+  ];
+
+  // Pulse colours — vivid, each word gets its own highlight colour
+  var pulseColors = [
+    '#e8c97a',  // gold
+    '#7ec8a0',  // mint green
+    '#e87a7a',  // coral red
+    '#7aaee8',  // sky blue
+    '#d4a86a',  // amber
+    '#c87ab0',  // pink
+    '#7ac8b8',  // teal
+    '#e8b060',  // orange gold
+    '#a07ae8',  // purple
+    '#e89070',  // salmon
+    '#60c8d0',  // cyan
+    '#e8a090',  // peach
+    '#80c880',  // green
+    '#b090e0',  // violet
+    '#e8c050',  // yellow gold
+    '#70b0e0',  // cornflower
+    '#e87090',  // hot pink
+    '#90d090',  // light green
+    '#e0a050',  // ochre
+    '#90a8d0'   // periwinkle
+  ];
 
   var placed = words.map(function(word, i) {
     var el = document.createElement('span');
-    el.className   = 'wys-word';
-    el.textContent = word;
+    el.className    = 'wys-word';
+    el.textContent  = word;
     var fs = sizes[i % sizes.length];
     el.style.position   = 'absolute';
     el.style.fontSize   = fs + 'px';
-    el.style.left       = (8  + Math.random() * 80) + '%';
-    el.style.top        = (10 + Math.random() * 72) + '%';
+    el.style.color      = restColors[i % restColors.length];
+    el.style.left       = (6 + Math.random() * 82) + '%';
+    el.style.top        = (8 + Math.random() * 76) + '%';
     el.style.transform  = 'translate(-50%,-50%)';
-    el.style.transition = 'font-size 0.55s cubic-bezier(0.34,1.56,0.64,1), color 0.4s ease, text-shadow 0.4s ease';
+    el.style.transition = 'font-size 1.1s cubic-bezier(0.34,1.4,0.64,1), color 0.8s ease, text-shadow 0.8s ease';
     el.style.zIndex     = '1';
     stage.appendChild(el);
-    return { el: el, baseSize: fs };
+    return { el: el, baseSize: fs, restColor: restColors[i % restColors.length], pulseColor: pulseColors[i % pulseColors.length] };
   });
 
   function pulse() {
     var item = placed[Math.floor(Math.random() * placed.length)];
     var el   = item.el;
-    el.style.fontSize   = (item.baseSize * 2.5) + 'px';
-    el.style.color      = '#f5f0e8';
-    el.style.textShadow = '0 0 22px rgba(176,28,28,0.7)';
+    // Grow and glow with the word's own colour
+    el.style.fontSize   = (item.baseSize * 2.8) + 'px';
+    el.style.color      = item.pulseColor;
+    el.style.textShadow = '0 0 28px ' + item.pulseColor;
     el.style.zIndex     = '10';
+    // Retreat slowly back to rest state
     setTimeout(function() {
       el.style.fontSize   = item.baseSize + 'px';
-      el.style.color      = 'rgba(245,240,232,0.22)';
+      el.style.color      = item.restColor;
       el.style.textShadow = 'none';
       el.style.zIndex     = '1';
-    }, 650);
+    }, 1800);
   }
 
-  // Stagger first wave
-  placed.forEach(function(_, i) { setTimeout(pulse, i * 160); });
-  // Keep cycling
+  // Stagger first wave generously
+  placed.forEach(function(_, i) { setTimeout(pulse, i * 400); });
+
+  // Cycle — one word pulses every 1.4 seconds
   if (wysInterval) clearInterval(wysInterval);
-  wysInterval = setInterval(pulse, 400);
+  wysInterval = setInterval(pulse, 1400);
 }
