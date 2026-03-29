@@ -578,3 +578,158 @@ body {
   color: #f5f0e8;
   text-shadow: 0 0 24px rgba(176, 28, 28, 0.6);
 }
+
+/* ── CONTACT PAGE ────────────────────────────────────────── */
+.contact-page-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.8fr;
+  gap: 3rem;
+  align-items: start;
+  margin-top: 1.5rem;
+}
+
+.contact-info-col { display: flex; flex-direction: column; gap: 1.8rem; }
+
+.contact-info-block {
+  background: var(--ink);
+  padding: 1.6rem;
+}
+.ci {
+  display: flex; align-items: center; gap: .9rem;
+  padding: .55rem 0; border-bottom: 1px solid rgba(255,255,255,.07);
+  font-size: .87rem; color: rgba(245,240,232,.6);
+}
+.ci:last-child { border-bottom: none; }
+.ci a { color: var(--red); text-decoration: none; }
+.ci a:hover { text-decoration: underline; }
+.ci-icon { font-size: 1rem; flex-shrink: 0; }
+
+.contact-courses-ref {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--red);
+  padding: 1.6rem;
+}
+.course-ref-item {
+  display: flex; gap: 1rem; align-items: baseline;
+  padding: .65rem 0; border-bottom: 1px solid var(--border);
+}
+.course-ref-item:last-child { border-bottom: none; }
+.course-ref-num {
+  font-family: 'Courier Prime', monospace;
+  font-size: .8rem; font-weight: 700;
+  color: var(--red); opacity: .5; flex-shrink: 0;
+}
+.course-ref-item strong { display: block; font-size: .88rem; color: var(--ink); }
+.course-ref-item span  { font-size: .78rem; color: var(--ink-light); }
+
+/* ── CONTACT FORM COL ────────────────────────────────────── */
+.contact-form-col {
+  background: var(--ink);
+  padding: 2rem;
+}
+.contact-form { display: flex; flex-direction: column; gap: 1.1rem; }
+
+/* Honeypot — visually hidden, accessible */
+.hp-field {
+  position: absolute;
+  left: -9999px; top: -9999px;
+  width: 1px; height: 1px;
+  overflow: hidden;
+}
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-group { display: flex; flex-direction: column; gap: .4rem; }
+
+.form-group label {
+  font-family: 'Courier Prime', monospace;
+  font-size: .65rem; font-weight: 700;
+  letter-spacing: .13em; text-transform: uppercase;
+  color: rgba(245,240,232,.45);
+}
+.req { color: var(--red); }
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group select,
+.form-group textarea {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  color: #f5f0e8;
+  padding: .6rem .9rem;
+  font-family: 'Outfit', sans-serif; font-size: .88rem;
+  transition: border-color .2s;
+  border-radius: 1px; outline: none; width: 100%;
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder { color: rgba(245,240,232,.22); }
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus { border-color: var(--red); }
+.form-group select option   { background: var(--ink); color: #f5f0e8; }
+.form-group textarea        { resize: vertical; min-height: 90px; }
+
+/* Checkboxes */
+.checkbox-group {
+  display: flex; flex-direction: column; gap: .5rem;
+  padding: .5rem 0;
+}
+.check-label {
+  display: flex; align-items: center; gap: .7rem;
+  font-size: .85rem; color: rgba(245,240,232,.7);
+  cursor: pointer;
+}
+.check-label input[type="checkbox"] {
+  width: 15px; height: 15px;
+  accent-color: var(--red); flex-shrink: 0;
+}
+
+/* Radio buttons */
+.radio-group {
+  display: flex; gap: 1.2rem; flex-wrap: wrap;
+  padding: .6rem 0;
+}
+.radio-label {
+  display: flex; align-items: center; gap: .5rem;
+  font-size: .85rem; color: rgba(245,240,232,.7);
+  cursor: pointer;
+}
+.radio-label input[type="radio"] {
+  accent-color: var(--red);
+}
+
+/* Submit row */
+.form-footer {
+  display: flex; align-items: center;
+  gap: 1.2rem; flex-wrap: wrap;
+  margin-top: .5rem;
+}
+.form-status         { font-size: .82rem; font-style: italic; color: rgba(245,240,232,.5); }
+.form-status.success { color: #6abf69; }
+.form-status.error   { color: #e07070; }
+
+.recaptcha-note {
+  font-size: .68rem; color: rgba(245,240,232,.3);
+  margin-top: .3rem;
+}
+.recaptcha-note a { color: rgba(245,240,232,.4); }
+
+/* Courses page simple CTA */
+.courses-cta {
+  margin-top: 2rem;
+  display: flex; align-items: center; gap: 1.5rem;
+  padding: 1.5rem 2rem;
+  background: var(--ink);
+  border-top: 3px solid var(--red);
+}
+.courses-cta p {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem; color: #f5f0e8; font-style: italic;
+}
+
+/* ── MOBILE CONTACT ──────────────────────────────────────── */
+@media (max-width: 768px) {
+  .contact-page-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+}
