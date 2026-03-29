@@ -1,6 +1,15 @@
 /* ── RESET ───────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; overflow: hidden; }
+
+/* Desktop: fixed viewport SPA */
+@media (min-width: 769px) {
+  html, body { height: 100%; overflow: hidden; }
+}
+
+/* Mobile: normal document flow */
+@media (max-width: 768px) {
+  html, body { height: auto; overflow: auto; }
+}
 
 /* ── TOKENS ──────────────────────────────────────────────── */
 :root {
@@ -538,7 +547,6 @@ body {
 
 /* ── MOBILE ──────────────────────────────────────────────── */
 @media (max-width: 768px) {
-  html, body { overflow: auto; }
   #nav { position: fixed; }
   body { padding-top: var(--nav-h); }
   .h-bg-img { display: none; }
