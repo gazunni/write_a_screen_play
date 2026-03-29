@@ -613,7 +613,7 @@ body.is-mobile .nav-links {
 
 body.is-mobile .nav-links.open { display: flex !important; }
 
-body.is-mobile .nb {
+body.is-mobile .nav-links .nb {
   width: 100%;
   text-align: left;
   padding: .9rem 1rem !important;
@@ -621,7 +621,9 @@ body.is-mobile .nb {
   color: rgba(245,240,232,.7) !important;
 }
 
-body.is-mobile .nb.cta { margin-left: 0 !important; margin-top: .3rem !important; }
+body.is-mobile .nav-links .nb.on { color: #f5f0e8 !important; }
+
+body.is-mobile .nav-links .nb.cta { margin-left: 0 !important; margin-top: .3rem !important; }
 
 /* ── WYS ANIMATED WORD STAGE ─────────────────────────────── */
 .wys-stage {
