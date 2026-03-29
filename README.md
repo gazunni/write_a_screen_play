@@ -57,7 +57,16 @@ Set these in Railway → your service → Variables:
 | `SMTP_USER`     | Your Gmail or SMTP username                      |
 | `SMTP_PASS`     | Gmail App Password (not your account password)   |
 | `CONTACT_TO`    | Where contact form emails are delivered          |
+| `RECAPTCHA_SITE_KEY` | Public key — also replace in `index.html`  |
+| `RECAPTCHA_SECRET_KEY` | Private key — server-side verification   |
 | `GA_MEASUREMENT_ID` | Google Analytics ID (e.g. `G-XXXXXXXXXX`)  |
+
+### reCAPTCHA v3 Setup
+1. Go to [google.com/recaptcha/admin](https://www.google.com/recaptcha/admin)
+2. Create a new site → choose **reCAPTCHA v3**
+3. Add your domain (and `localhost` for dev)
+4. Copy the **Site Key** → replace `RECAPTCHA_SITE_KEY` in `public/index.html` (two places) and set as Railway env var
+5. Copy the **Secret Key** → set as `RECAPTCHA_SECRET_KEY` Railway env var
 
 ### Gmail App Password Setup
 1. Go to [myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords)
