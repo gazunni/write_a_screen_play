@@ -42,7 +42,7 @@ document.getElementById('hamburger').addEventListener('click', () => {
 /* ── HASH ROUTING ON LOAD ────────────────────────────────── */
 window.addEventListener('DOMContentLoaded', () => {
   const hash = window.location.hash.replace('#', '');
-  const valid = ['home', 'story', 'craft', 'principles', 'about', 'courses'];
+  const valid = ['home', 'story', 'craft', 'principles', 'about', 'courses', 'contact'];
   if (hash && valid.includes(hash)) {
     go(hash);
   }
