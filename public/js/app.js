@@ -3,10 +3,10 @@ function go(id) {
   document.querySelectorAll('.pg').forEach(p => p.classList.remove('on'));
   document.querySelectorAll('.nb').forEach(b => b.classList.remove('on'));
 
-  const pg = document.getElementById('pg-' + id);
+  var pg = document.getElementById('pg-' + id);
   if (pg) { pg.classList.add('on'); pg.scrollTop = 0; }
 
-  const bt = document.querySelector('[data-p="' + id + '"]');
+  var bt = document.querySelector('[data-p="' + id + '"]');
   if (bt) bt.classList.add('on');
 
   // Close mobile menu if open
@@ -15,8 +15,9 @@ function go(id) {
   // Update browser URL hash without reload
   history.pushState(null, '', '#' + id);
 
-  // Fire WYS animation when story page is shown
-  if (id === 'story') { setTimeout(buildWYS, 80); }
+  // Page-specific init
+  if (id === 'story')   setTimeout(buildWYS, 80);
+  if (id === 'contact') setTimeout(initMathChallenge, 50);
 
   // Track page view in GA if available
   if (typeof gtag !== 'undefined') {
@@ -52,37 +53,70 @@ var form      = document.getElementById('contact-form');
 var submitBtn = document.getElementById('submit-btn');
 var statusEl  = document.getElementById('form-status');
 
+// ── Math challenge — set when Contact page loads ──────────
+var mathAnswer = 0;
+
+function initMathChallenge() {
+  var a = Math.floor(Math.random() * 9) + 1;
+  var b = Math.floor(Math.random() * 9) + 1;
+  mathAnswer = a + b;
+  var label = document.getElementById('math-label');
+  if (label) label.textContent = 'What is ' + a + ' + ' + b + '? *';
+  var input = document.getElementById('cf-math');
+  if (input) input.value = '';
+}
+
+// ── Form load timestamp ───────────────────────────────────
+var formLoadTime = Date.now();
+
 if (form) {
+  // Reset timer whenever contact page becomes active
+  form.addEventListener('focusin', function() {
+    if (formLoadTime === 0) formLoadTime = Date.now();
+  }, { once: true });
+
   form.addEventListener('submit', function(e) {
     e.preventDefault();
 
-    // ── Honeypot check — bail silently if filled ──────────
+    // ── Honeypot ──────────────────────────────────────────
     var honeypot = form.querySelector('#website');
     if (honeypot && honeypot.value !== '') {
-      // Bot detected — fake success to avoid tipping them off
       setStatus('Your message has been sent!', 'success');
       return;
     }
 
+    // ── Time trap — under 4 seconds = bot ─────────────────
+    var elapsed = (Date.now() - formLoadTime) / 1000;
+    if (elapsed < 4) {
+      setStatus('Please take a moment to fill in the form.', 'error');
+      return;
+    }
+
+    // ── Math challenge ────────────────────────────────────
+    var mathInput = parseInt((form.querySelector('#cf-math').value || '').trim(), 10);
+    if (isNaN(mathInput) || mathInput !== mathAnswer) {
+      setStatus('Incorrect answer to the maths question — please try again.', 'error');
+      initMathChallenge();
+      return;
+    }
+
     // ── Collect fields ────────────────────────────────────
-    var name     = (form.querySelector('#cf-name').value   || '').trim();
-    var email    = (form.querySelector('#cf-email').value  || '').trim();
-    var phone    = (form.querySelector('#cf-phone').value  || '').trim();
-    var goal     = (form.querySelector('#cf-goal').value   || '').trim();
-    var message  = (form.querySelector('#cf-message').value|| '').trim();
-    var heard    = (form.querySelector('#cf-heard').value  || '').trim();
+    var name    = (form.querySelector('#cf-name').value    || '').trim();
+    var email   = (form.querySelector('#cf-email').value   || '').trim();
+    var phone   = (form.querySelector('#cf-phone').value   || '').trim();
+    var goal    = (form.querySelector('#cf-goal').value    || '').trim();
+    var message = (form.querySelector('#cf-message').value || '').trim();
+    var heard   = (form.querySelector('#cf-heard').value   || '').trim();
 
-    // Checked courses
-    var courseBoxes  = form.querySelectorAll('input[name="courses"]:checked');
-    var courses      = Array.prototype.map.call(courseBoxes, function(cb){ return cb.value; });
+    var courseBoxes = form.querySelectorAll('input[name="courses"]:checked');
+    var courses     = Array.prototype.map.call(courseBoxes, function(cb) { return cb.value; });
 
-    // Radio values
-    var industryEl  = form.querySelector('input[name="in_industry"]:checked');
-    var preferEl    = form.querySelector('input[name="preferred_contact"]:checked');
-    var inIndustry  = industryEl  ? industryEl.value  : '';
-    var preferred   = preferEl   ? preferEl.value    : 'Email';
+    var industryEl = form.querySelector('input[name="in_industry"]:checked');
+    var preferEl   = form.querySelector('input[name="preferred_contact"]:checked');
+    var inIndustry = industryEl ? industryEl.value : '';
+    var preferred  = preferEl  ? preferEl.value   : 'Email';
 
-    // ── Client-side validation ────────────────────────────
+    // ── Client validation ─────────────────────────────────
     if (!name || !email || !goal) {
       setStatus('Please fill in all required fields (name, email, goal).', 'error');
       return;
@@ -100,52 +134,39 @@ if (form) {
     submitBtn.textContent = 'Sending…';
     setStatus('', '');
 
-    // ── reCAPTCHA v3 token then POST ──────────────────────
-    function doSubmit(recaptchaToken) {
-      fetch('/contact', {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name:       name,
-          email:      email,
-          phone:      phone,
-          goal:       goal,
-          message:    message,
-          courses:    courses,
-          inIndustry: inIndustry,
-          preferred:  preferred,
-          heardFrom:  heard,
-          recaptchaToken: recaptchaToken || ''
-        })
+    fetch('/contact', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name:       name,
+        email:      email,
+        phone:      phone,
+        goal:       goal,
+        message:    message,
+        courses:    courses,
+        inIndustry: inIndustry,
+        preferred:  preferred,
+        heardFrom:  heard
       })
-      .then(function(res) { return res.json(); })
-      .then(function(data) {
-        if (data.ok) {
-          setStatus(data.message, 'success');
-          form.reset();
-        } else {
-          setStatus(data.error || 'Something went wrong. Please try again.', 'error');
-        }
-      })
-      .catch(function() {
-        setStatus('Network error. Please email gabriel.d.angi@gmail.com directly.', 'error');
-      })
-      .finally(function() {
-        submitBtn.disabled    = false;
-        submitBtn.textContent = 'Send Message';
-      });
-    }
-
-    // Execute reCAPTCHA — gracefully skip if key not yet configured
-    if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.execute === 'function') {
-      grecaptcha.ready(function() {
-        grecaptcha.execute('RECAPTCHA_SITE_KEY', { action: 'contact' })
-          .then(function(token) { doSubmit(token); })
-          .catch(function()     { doSubmit('');    });
-      });
-    } else {
-      doSubmit('');
-    }
+    })
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+      if (data.ok) {
+        setStatus(data.message, 'success');
+        form.reset();
+        initMathChallenge();
+        formLoadTime = 0;
+      } else {
+        setStatus(data.error || 'Something went wrong. Please try again.', 'error');
+      }
+    })
+    .catch(function() {
+      setStatus('Network error. Please email gabriel.d.angi@gmail.com directly.', 'error');
+    })
+    .finally(function() {
+      submitBtn.disabled    = false;
+      submitBtn.textContent = 'Send Message';
+    });
   });
 }
 
