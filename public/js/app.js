@@ -15,6 +15,9 @@ function go(id) {
   // Update browser URL hash without reload
   history.pushState(null, '', '#' + id);
 
+  // Fire WYS animation when story page is shown
+  if (id === 'story') { setTimeout(buildWYS, 80); }
+
   // Track page view in GA if available
   if (typeof gtag !== 'undefined') {
     gtag('event', 'page_view', { page_title: id, page_path: '/#' + id });
@@ -107,7 +110,15 @@ function setStatus(msg, type) {
 }
 
 /* ── WYS ANIMATED WORD STAGE ─────────────────────────────── */
-(function () {
+var wysInterval = null;
+
+function buildWYS() {
+  const stage = document.getElementById('wys-stage');
+  if (!stage) return;
+
+  // Already built — just ensure interval is running
+  if (stage.children.length > 0) return;
+
   const words = [
     'WRITE', 'YOUR', 'STORY', 'CHARACTER', 'PLOT',
     'CONFLICT', 'DIALOGUE', 'STRUCTURE', 'ACT', 'SCENE',
@@ -116,77 +127,40 @@ function setStatus(msg, type) {
   ];
   const sizes = [11, 13, 15, 18, 22, 26, 14, 17, 20, 12];
 
-  let interval = null;
-  let placed   = [];
-
-  function buildWYS() {
-    const stage = document.getElementById('wys-stage');
-    if (!stage) return;
-
-    // Clear any previous run
-    stage.innerHTML = '';
-    placed = [];
-    if (interval) { clearInterval(interval); interval = null; }
-
-    // Use hardcoded fallback dimensions if stage has no size yet
-    const W = stage.offsetWidth  || 420;
-    const H = stage.offsetHeight || 170;
-
-    placed = words.map((word, i) => {
-      const el = document.createElement('span');
-      el.className  = 'wys-word';
-      el.textContent = word;
-      const fs = sizes[i % sizes.length];
-      el.style.cssText = [
-        'position:absolute',
-        'font-size:' + fs + 'px',
-        'left:'  + (8  + Math.random() * 80) + '%',
-        'top:'   + (10 + Math.random() * 72) + '%',
-        'transform:translate(-50%,-50%)',
-        'transition:font-size 0.55s cubic-bezier(0.34,1.56,0.64,1), color 0.4s ease, text-shadow 0.4s ease',
-        'z-index:1'
-      ].join(';');
-      stage.appendChild(el);
-      return { el, baseSize: fs };
-    });
-
-    function pulse() {
-      const item = placed[Math.floor(Math.random() * placed.length)];
-      const el   = item.el;
-      // Grow + highlight
-      el.style.fontSize   = (item.baseSize * 2.5) + 'px';
-      el.style.color      = '#f5f0e8';
-      el.style.textShadow = '0 0 22px rgba(176,28,28,0.7)';
-      el.style.zIndex     = '10';
-      // Shrink back
-      setTimeout(() => {
-        el.style.fontSize   = item.baseSize + 'px';
-        el.style.color      = 'rgba(245,240,232,0.22)';
-        el.style.textShadow = 'none';
-        el.style.zIndex     = '1';
-      }, 650);
-    }
-
-    // Stagger startup
-    placed.forEach((_, i) => setTimeout(pulse, i * 160));
-    // Keep cycling
-    interval = setInterval(pulse, 400);
-  }
-
-  // Called every time the story page becomes active
-  function onStoryVisible() {
-    // Small delay so the page transition (opacity) completes first
-    setTimeout(buildWYS, 50);
-  }
-
-  // Patch the global go() so we know when story is navigated to
-  document.addEventListener('DOMContentLoaded', () => {
-    const original = window.go;
-    window.go = function (id) {
-      original(id);
-      if (id === 'story') onStoryVisible();
-    };
-    // Also fire if the page loads directly on #story
-    if (window.location.hash === '#story') onStoryVisible();
+  var placed = words.map(function(word, i) {
+    var el = document.createElement('span');
+    el.className   = 'wys-word';
+    el.textContent = word;
+    var fs = sizes[i % sizes.length];
+    el.style.position   = 'absolute';
+    el.style.fontSize   = fs + 'px';
+    el.style.left       = (8  + Math.random() * 80) + '%';
+    el.style.top        = (10 + Math.random() * 72) + '%';
+    el.style.transform  = 'translate(-50%,-50%)';
+    el.style.transition = 'font-size 0.55s cubic-bezier(0.34,1.56,0.64,1), color 0.4s ease, text-shadow 0.4s ease';
+    el.style.zIndex     = '1';
+    stage.appendChild(el);
+    return { el: el, baseSize: fs };
   });
-})();
+
+  function pulse() {
+    var item = placed[Math.floor(Math.random() * placed.length)];
+    var el   = item.el;
+    el.style.fontSize   = (item.baseSize * 2.5) + 'px';
+    el.style.color      = '#f5f0e8';
+    el.style.textShadow = '0 0 22px rgba(176,28,28,0.7)';
+    el.style.zIndex     = '10';
+    setTimeout(function() {
+      el.style.fontSize   = item.baseSize + 'px';
+      el.style.color      = 'rgba(245,240,232,0.22)';
+      el.style.textShadow = 'none';
+      el.style.zIndex     = '1';
+    }, 650);
+  }
+
+  // Stagger first wave
+  placed.forEach(function(_, i) { setTimeout(pulse, i * 160); });
+  // Keep cycling
+  if (wysInterval) clearInterval(wysInterval);
+  wysInterval = setInterval(pulse, 400);
+}
