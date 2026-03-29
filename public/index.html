@@ -26,9 +26,6 @@
   <!-- Styles -->
   <link rel="stylesheet" href="/css/main.css">
 
-  <!-- reCAPTCHA v3 — replace key via Railway env or directly -->
-  <script src="https://www.google.com/recaptcha/api.js?render=RECAPTCHA_SITE_KEY"></script>
-
   <!-- Google Analytics — replace G-XXXXXXXXXX via Railway env var or directly -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
   <script>
@@ -469,6 +466,12 @@
                 <textarea id="cf-message" name="message" rows="3" placeholder="Optional — your idea, current project, questions…"></textarea>
               </div>
 
+              <!-- Math challenge — JS-generated, invisible to bots reading static HTML -->
+              <div class="form-group">
+                <label id="math-label" for="cf-math">Quick check <span class="req">*</span></label>
+                <input type="text" id="cf-math" name="math_answer" autocomplete="off" placeholder="Type your answer">
+              </div>
+
               <!-- Submit -->
               <div class="form-footer">
                 <button type="submit" class="btn btn-r" id="submit-btn">
@@ -476,8 +479,6 @@
                 </button>
                 <p class="form-status" id="form-status"></p>
               </div>
-
-              <p class="recaptcha-note">Protected by reCAPTCHA — <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy</a> &amp; <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms</a></p>
 
             </form>
           </div>
