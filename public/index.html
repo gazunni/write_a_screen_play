@@ -118,9 +118,7 @@
             </div>
           </div>
           <div class="stack">
-            <img class="content-img"
-              src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiu4Bo0zN5nsphwW7iJBBYX4JE0OAfPl4syCG0E9oPspwqjsbDT5IGlgyEIA_ukR6lCiJwbLN60pE30tksSLx_Ol4LskXHhOdZjDNLXEmswmMZ7FZyW1k2q8Y_GcepMT9lnz2WQGN5r-6A/s1600/WYS+with+bgrd.jpg"
-              alt="Write your story">
+            <div class="wys-stage" id="wys-stage" aria-label="Write Your Story animated graphic"></div>
             <div class="card card-red">
               <p class="eyebrow">The Definition of Story</p>
               <table class="def-table">
@@ -390,6 +388,16 @@
 
   <!-- Scripts -->
   <script src="/js/app.js"></script>
+  <script>
+    // Request fullscreen on first click — browsers require a user gesture
+    document.addEventListener('click', function requestFS() {
+      var el = document.documentElement;
+      if (el.requestFullscreen)            el.requestFullscreen();
+      else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+      else if (el.mozRequestFullScreen)    el.mozRequestFullScreen();
+      document.removeEventListener('click', requestFS);
+    }, { once: true });
+  </script>
 
 </body>
 </html>
