@@ -225,9 +225,21 @@ body {
 }
 .btn-r { background: var(--red); color: #fff; }
 .btn-r:hover { background: #8f1515; transform: translateY(-1px); }
-.btn-o { background: transparent; border: 2px solid var(--ink); color: var(--ink); }
+.btn-o { background: transparent; border: 1px solid rgba(26,26,26,.3); color: var(--ink-light); }
 .btn-o:hover { border-color: var(--red); color: var(--red); }
-.btns  { display: flex; gap: .8rem; margin-top: 1.3rem; flex-wrap: wrap; }
+.btns  { display: flex; gap: .8rem; margin-top: 1.3rem; flex-wrap: wrap; align-items: center; }
+
+/* Hero primary CTA — larger, more commanding */
+.btns .btn-r {
+  font-size: .8rem;
+  padding: .85rem 2.2rem;
+  letter-spacing: .16em;
+}
+/* Secondary — smaller, recedes */
+.btns .btn-o {
+  font-size: .68rem;
+  padding: .65rem 1.4rem;
+}
 
 /* ── QUOTE PANEL ─────────────────────────────────────────── */
 .qp {
